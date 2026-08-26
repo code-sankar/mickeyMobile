@@ -1,0 +1,133 @@
+[
+  {
+    "id": "screen",
+    "name": "Cracked or dead screen",
+    "short": "Screen",
+    "icon": "Smartphone",
+    "blurb": "Glass, digitiser and LCD/OLED assembly replaced as one unit.",
+    "turnaround": "45–90 minutes",
+    "sameDay": true,
+    "warranty": "90 days",
+    "gradable": true,
+    "symptoms": [
+      "Spider cracks",
+      "Black or green lines",
+      "Ghost touch",
+      "Dead zones"
+    ],
+    "includes": [
+      "Full display assembly swap",
+      "True Tone / face-unlock recalibration",
+      "New adhesive seal + screen protector fitted"
+    ]
+  },
+  {
+    "id": "battery",
+    "name": "Battery replacement",
+    "short": "Battery",
+    "icon": "BatteryCharging",
+    "blurb": "Cells below 80% health swapped for a new, cycle-tested pack.",
+    "turnaround": "30–45 minutes",
+    "sameDay": true,
+    "warranty": "180 days",
+    "gradable": true,
+    "symptoms": [
+      "Drains by lunchtime",
+      "Random shutdowns",
+      "Swollen back",
+      "Service message"
+    ],
+    "includes": [
+      "New battery with 0 cycles",
+      "Health + charge-rate report",
+      "Charging port cleaned free"
+    ]
+  },
+  {
+    "id": "water",
+    "name": "Water / liquid damage",
+    "short": "Water damage",
+    "icon": "Droplets",
+    "blurb": "Ultrasonic board cleaning and corrosion treatment in-house.",
+    "turnaround": "24–48 hours",
+    "sameDay": false,
+    "warranty": "30 days",
+    "gradable": false,
+    "symptoms": [
+      "Dropped in water",
+      "No power",
+      "Speaker crackle",
+      "Fogged camera"
+    ],
+    "includes": [
+      "Teardown + ultrasonic bath",
+      "Corrosion treatment and board-level repair",
+      "Data-recovery attempt at no extra cost"
+    ]
+  },
+  {
+    "id": "charging",
+    "name": "Charging port",
+    "short": "Charging port",
+    "icon": "Cable",
+    "blurb": "Flex or port assembly replaced, connector re-tinned.",
+    "turnaround": "60–90 minutes",
+    "sameDay": true,
+    "warranty": "90 days",
+    "gradable": true,
+    "symptoms": [
+      "Wiggle to charge",
+      "Slow charging",
+      "No data transfer",
+      "Loose cable"
+    ],
+    "includes": [
+      "New port flex assembly",
+      "Fast-charge handshake test",
+      "Accessory compatibility check"
+    ]
+  },
+  {
+    "id": "back",
+    "name": "Back glass / housing",
+    "short": "Back glass",
+    "icon": "Layers",
+    "blurb": "Laser-separated rear glass with wireless charging intact.",
+    "turnaround": "2–4 hours",
+    "sameDay": true,
+    "warranty": "90 days",
+    "gradable": true,
+    "symptoms": [
+      "Shattered rear panel",
+      "Wireless charging failing",
+      "Frame dents"
+    ],
+    "includes": [
+      "Laser glass removal",
+      "Colour-matched rear panel",
+      "Wireless charging + IP reseal"
+    ]
+  },
+  {
+    "id": "camera",
+    "name": "Camera module",
+    "short": "Camera",
+    "icon": "Camera",
+    "blurb": "Rear or front module replacement, lens glass included.",
+    "turnaround": "90 min – 3 hours",
+    "sameDay": true,
+    "warranty": "90 days",
+    "gradable": true,
+    "symptoms": [
+      "Blurry photos",
+      "Shaking viewfinder",
+      "Black preview",
+      "Cracked lens"
+    ],
+    "includes": [
+      "Module swap + lens glass",
+      "Focus and OIS calibration",
+      "Sample-shot verification"
+    ]
+  }
+]

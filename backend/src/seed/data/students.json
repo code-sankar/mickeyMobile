@@ -1,0 +1,107 @@
+{
+  "discountTiers": [
+    {
+      "id": "standard",
+      "percent": 10,
+      "min": 1000,
+      "max": 4999,
+      "label": "Standard",
+      "blurb": "Screen protectors, batteries, charging ports and most single-part jobs."
+    },
+    {
+      "id": "major",
+      "percent": 15,
+      "min": 5000,
+      "max": null,
+      "label": "Major repair",
+      "blurb": "Display assemblies, board-level work and water-damage recovery."
+    }
+  ],
+  "minimumSpend": 1000,
+  "minimumAge": 18,
+  "eligibility": [
+    {
+      "id": "age",
+      "title": "18 or older",
+      "detail": "Verified from your date of birth at registration. Under-18s cannot register."
+    },
+    {
+      "id": "student",
+      "title": "A current student",
+      "detail": "School, college or university — any institution with a photo ID card that shows a valid year."
+    },
+    {
+      "id": "spend",
+      "title": "Repair bill over Rs 1,000",
+      "detail": "Applies to maintenance and repair work. Parts and labour both count towards the total."
+    },
+    {
+      "id": "device",
+      "title": "One registered handset",
+      "detail": "The discount is tied to the phone you register, so we can quote and stock for it."
+    }
+  ],
+  "deviceAgeOptions": [
+    {
+      "id": "under-1",
+      "label": "Less than a year"
+    },
+    {
+      "id": "1-2",
+      "label": "1 to 2 years"
+    },
+    {
+      "id": "2-3",
+      "label": "2 to 3 years"
+    },
+    {
+      "id": "over-3",
+      "label": "More than 3 years"
+    }
+  ],
+  "collectedData": [
+    {
+      "id": "identity",
+      "field": "Name, date of birth, institution",
+      "purpose": "Confirms you are a student and over 18, so the counter can honour the discount."
+    },
+    {
+      "id": "contact",
+      "field": "Phone number and email address",
+      "purpose": "Confirming your registration and telling you when a repair is ready."
+    },
+    {
+      "id": "address",
+      "field": "Postal address",
+      "purpose": "Checking you are local enough for free pickup, and for the repair invoice."
+    },
+    {
+      "id": "device",
+      "field": "Phone brand, model and how long you have owned it",
+      "purpose": "Quoting your repair accurately, and — only if you opt in — telling you when parts and accessories for that model arrive."
+    },
+    {
+      "id": "id-card",
+      "field": "Photo of your student ID card",
+      "purpose": "Proof of enrolment. Checked at the counter and not stored on this website."
+    }
+  ],
+  "consentPurposes": {
+    "verification": {
+      "id": "verification",
+      "required": true,
+      "label": "I confirm the details above are mine and true, and I agree to Mickey Mobile using them to verify my student discount."
+    },
+    "marketing": {
+      "id": "marketing",
+      "required": false,
+      "label": "Optional — email me about once a month when accessories, parts or new handsets for my phone come into stock.",
+      "detail": "You can stop these at any time by replying to any message. Leaving this unticked does not affect your discount."
+    }
+  },
+  "retentionPolicy": {
+    "idCard": "Your ID photo is checked and then deleted — it is never uploaded to this website.",
+    "registration": "Your registration is kept while you are a student with us, and removed on request.",
+    "withdrawal": "Message or email the shop at any time to see, correct or delete what is held."
+  }
+}

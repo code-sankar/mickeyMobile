@@ -1,0 +1,90 @@
+[
+  {
+    "id": "r1",
+    "name": "Ananya Bora",
+    "initials": "AB",
+    "tone": "blue",
+    "device": "iPhone 14 Pro · screen",
+    "rating": 5,
+    "date": "2 weeks ago",
+    "verified": true,
+    "body": "Walked in at 6pm with a shattered screen, walked out at 7:15 with the phone looking new. They showed me the old and new panel side by side before fitting it — no other shop in town has done that for me."
+  },
+  {
+    "id": "r2",
+    "name": "Rohit Deka",
+    "initials": "RD",
+    "tone": "emerald",
+    "device": "Galaxy S22 · battery",
+    "rating": 5,
+    "date": "1 month ago",
+    "verified": true,
+    "body": "Battery was dying by 2pm every day. Forty minutes and ₹4,500 later it lasts a full day again. They printed a health report and stapled it to the bill."
+  },
+  {
+    "id": "r3",
+    "name": "Priyanka Saikia",
+    "initials": "PS",
+    "tone": "violet",
+    "device": "Pixel 7a · water damage",
+    "rating": 5,
+    "date": "3 weeks ago",
+    "verified": true,
+    "body": "Dropped my Pixel in a bucket during Bihu cleaning. Two other shops said it was gone. Mickey Mobile cleaned the board and had it back to me in a day and a half with all my photos intact."
+  },
+  {
+    "id": "r4",
+    "name": "Imran Hussain",
+    "initials": "IH",
+    "tone": "blue",
+    "device": "Refurbished iPhone 13",
+    "rating": 5,
+    "date": "2 months ago",
+    "verified": true,
+    "body": "Bought a refurbished 13 for my sister. Battery health showed 94%, came with a case and protector already fitted, and they set it up from her old phone at the counter. Six months in, zero issues."
+  },
+  {
+    "id": "r5",
+    "name": "Nilakshi Gogoi",
+    "initials": "NG",
+    "tone": "amber",
+    "device": "AirPods Pro 2",
+    "rating": 4,
+    "date": "5 weeks ago",
+    "verified": true,
+    "body": "Genuine stock and about two thousand under the online price. Only reason it is not five stars is that I waited twenty minutes at the counter on a Saturday — go on a weekday."
+  },
+  {
+    "id": "r6",
+    "name": "Debojit Kalita",
+    "initials": "DK",
+    "tone": "emerald",
+    "device": "OnePlus 12R · charging port",
+    "rating": 5,
+    "date": "1 week ago",
+    "verified": true,
+    "body": "Had to wiggle the cable to charge for months. They diagnosed it free, quoted ₹2,700 upfront, and it did not go a rupee over. Fast charging is back to 100W."
+  },
+  {
+    "id": "r7",
+    "name": "Meghna Choudhury",
+    "initials": "MC",
+    "tone": "violet",
+    "device": "Galaxy Z Flip 5 · screen",
+    "rating": 5,
+    "date": "6 weeks ago",
+    "verified": true,
+    "body": "A foldable screen is not a cheap fix anywhere, but they were the only place in Tinsukia that would touch it, and they were upfront about the cost before opening it up."
+  },
+  {
+    "id": "r8",
+    "name": "Sanjay Tamuli",
+    "initials": "ST",
+    "tone": "blue",
+    "device": "iPhone 12 · back glass",
+    "rating": 5,
+    "date": "3 months ago",
+    "verified": true,
+    "body": "Laser removal, colour matched perfectly, wireless charging still works. They also cleaned the charging port for free while it was open."
+  }
+]

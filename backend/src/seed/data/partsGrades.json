@@ -1,0 +1,16 @@
+[
+  {
+    "id": "oem",
+    "name": "Genuine OEM",
+    "multiplier": 1,
+    "warrantyDays": 180,
+    "note": "Manufacturer-sourced part, identical to factory spec."
+  },
+  {
+    "id": "premium",
+    "name": "Premium aftermarket",
+    "multiplier": 0.68,
+    "warrantyDays": 90,
+    "note": "Tier-1 supplier part. Same brightness and touch response, lower cost."
+  }
+]
