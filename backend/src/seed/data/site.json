@@ -1,0 +1,165 @@
+{
+  "site": {
+    "name": "Mickey Mobile",
+    "tagline": "Sales · Repair · Accessories",
+    "phoneDisplay": "+91 98765 43210",
+    "phoneHref": "tel:+919876543210",
+    "whatsappNumber": "919876543210",
+    "email": "hello@mickeymobile.in",
+    "address": {
+      "line1": "2nd Floor, Shop No 258",
+      "line2": "TDA Market",
+      "city": "Tinsukia",
+      "region": "Assam",
+      "postal": "786125"
+    },
+    "directionsHref": "https://maps.google.com/?cid=2721419290466753029",
+    "google": {
+      "cid": "2721419290466753029",
+      "mapsUrl": "https://maps.google.com/?cid=2721419290466753029"
+    }
+  },
+  "sampleRating": {
+    "value": 4.9,
+    "count": 612
+  },
+  "stats": [
+    {
+      "value": 11400,
+      "suffix": "+",
+      "label": "Devices repaired"
+    },
+    {
+      "value": 45,
+      "suffix": " min",
+      "label": "Average screen swap"
+    },
+    {
+      "value": 90,
+      "suffix": "-day",
+      "label": "Repair warranty"
+    },
+    {
+      "value": 4.9,
+      "suffix": "★",
+      "label": "Average rating",
+      "decimals": 1,
+      "fromReviews": true
+    }
+  ],
+  "hours": [
+    {
+      "day": "Sunday",
+      "short": "Sun",
+      "dayIndex": 0,
+      "open": "11:00",
+      "close": "18:00"
+    },
+    {
+      "day": "Monday",
+      "short": "Mon",
+      "dayIndex": 1,
+      "open": "10:00",
+      "close": "20:30"
+    },
+    {
+      "day": "Tuesday",
+      "short": "Tue",
+      "dayIndex": 2,
+      "open": "10:00",
+      "close": "20:30"
+    },
+    {
+      "day": "Wednesday",
+      "short": "Wed",
+      "dayIndex": 3,
+      "open": "10:00",
+      "close": "20:30"
+    },
+    {
+      "day": "Thursday",
+      "short": "Thu",
+      "dayIndex": 4,
+      "open": "10:00",
+      "close": "20:30"
+    },
+    {
+      "day": "Friday",
+      "short": "Fri",
+      "dayIndex": 5,
+      "open": "10:00",
+      "close": "20:30"
+    },
+    {
+      "day": "Saturday",
+      "short": "Sat",
+      "dayIndex": 6,
+      "open": "10:00",
+      "close": "21:00"
+    }
+  ],
+  "navLinks": [
+    {
+      "label": "Repairs",
+      "to": "/repairs"
+    },
+    {
+      "label": "Shop",
+      "to": "/shop"
+    },
+    {
+      "label": "Accessories",
+      "to": "/accessories"
+    },
+    {
+      "label": "Students",
+      "to": "/students"
+    },
+    {
+      "label": "Reviews",
+      "to": "/reviews"
+    },
+    {
+      "label": "Visit us",
+      "to": "/visit"
+    }
+  ],
+  "servicedBrands": [
+    "Apple",
+    "Samsung",
+    "Google Pixel",
+    "OnePlus",
+    "Nothing",
+    "Xiaomi",
+    "Vivo",
+    "Oppo",
+    "Motorola",
+    "Realme"
+  ],
+  "timeSlots": [
+    "10:00 AM",
+    "11:30 AM",
+    "01:00 PM",
+    "02:30 PM",
+    "04:00 PM",
+    "05:30 PM",
+    "07:00 PM"
+  ],
+  "serviceModes": [
+    {
+      "id": "walkin",
+      "label": "Walk in & wait",
+      "note": "Lounge, Wi-Fi and coffee while we work"
+    },
+    {
+      "id": "dropoff",
+      "label": "Drop off",
+      "note": "We text you the moment it is ready"
+    },
+    {
+      "id": "pickup",
+      "label": "Free pickup",
+      "note": "Within 8 km of TDA Market"
+    }
+  ]
+}

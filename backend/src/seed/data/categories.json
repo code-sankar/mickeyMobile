@@ -1,0 +1,26 @@
+[
+  {
+    "id": "all",
+    "label": "Everything"
+  },
+  {
+    "id": "new",
+    "label": "New phones"
+  },
+  {
+    "id": "refurb",
+    "label": "Refurbished"
+  },
+  {
+    "id": "cases",
+    "label": "Cases"
+  },
+  {
+    "id": "chargers",
+    "label": "Power"
+  },
+  {
+    "id": "audio",
+    "label": "Audio"
+  }
+]

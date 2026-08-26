@@ -1,0 +1,1193 @@
+[
+  {
+    "id": "iphone-15-128",
+    "name": "iPhone 15",
+    "subtitle": "128 GB · Blue",
+    "brand": "Apple",
+    "category": "new",
+    "kind": "phone",
+    "tone": "blue",
+    "price": 66900,
+    "mrp": 79900,
+    "badge": "Best Seller",
+    "stock": "in",
+    "stockNote": "9 in store",
+    "blurb": "The Dynamic Island moves to the standard iPhone, along with a 48MP main camera and USB-C. Our most-asked-for handset three months running.",
+    "specs": [
+      {
+        "label": "Display",
+        "value": "6.1\" OLED"
+      },
+      {
+        "label": "Chip",
+        "value": "A16 Bionic"
+      },
+      {
+        "label": "Camera",
+        "value": "48MP dual"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Display",
+        "value": "6.1\" Super Retina XDR, 2000 nits peak"
+      },
+      {
+        "label": "Chip",
+        "value": "A16 Bionic, 6-core GPU"
+      },
+      {
+        "label": "Rear camera",
+        "value": "48MP main + 12MP ultra-wide"
+      },
+      {
+        "label": "Battery",
+        "value": "Up to 20 hrs video, USB-C 20W"
+      },
+      {
+        "label": "Build",
+        "value": "Aluminium + colour-infused glass, IP68"
+      }
+    ],
+    "inBox": [
+      "iPhone 15",
+      "USB-C woven cable",
+      "Documentation",
+      "Free screen protector fitted"
+    ],
+    "warranty": "1 year Apple India warranty"
+  },
+  {
+    "id": "galaxy-s24-256",
+    "name": "Galaxy S24 5G",
+    "subtitle": "256 GB · Onyx Black",
+    "brand": "Samsung",
+    "category": "new",
+    "kind": "phone",
+    "tone": "violet",
+    "price": 74999,
+    "mrp": 84999,
+    "stock": "in",
+    "stockNote": "5 in store",
+    "blurb": "Galaxy AI on a 6.2\" 120Hz panel that hits 2600 nits — the brightest screen we stock, and the one that survives Tinsukia sunlight.",
+    "specs": [
+      {
+        "label": "Display",
+        "value": "6.2\" 120Hz"
+      },
+      {
+        "label": "Chip",
+        "value": "Exynos 2400"
+      },
+      {
+        "label": "Camera",
+        "value": "50MP triple"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Display",
+        "value": "6.2\" FHD+ AMOLED 2X, 1–120Hz, 2600 nits"
+      },
+      {
+        "label": "Chip",
+        "value": "Exynos 2400, 8 GB RAM"
+      },
+      {
+        "label": "Rear camera",
+        "value": "50MP + 12MP UW + 10MP 3x tele"
+      },
+      {
+        "label": "Battery",
+        "value": "4000 mAh, 25W wired / 15W wireless"
+      },
+      {
+        "label": "Software",
+        "value": "7 years of OS + security updates"
+      }
+    ],
+    "inBox": [
+      "Galaxy S24",
+      "USB-C to USB-C cable",
+      "SIM tool",
+      "Free screen protector fitted"
+    ],
+    "warranty": "1 year Samsung India warranty"
+  },
+  {
+    "id": "pixel-8a-128",
+    "name": "Pixel 8a",
+    "subtitle": "128 GB · Aloe",
+    "brand": "Google",
+    "category": "new",
+    "kind": "phone",
+    "tone": "emerald",
+    "price": 49999,
+    "mrp": 52999,
+    "badge": "New Arrival",
+    "stock": "low",
+    "stockNote": "Only 2 left",
+    "blurb": "Tensor G3 and seven years of updates for under fifty thousand. The value pick we hand to anyone upgrading from a mid-range Android.",
+    "specs": [
+      {
+        "label": "Display",
+        "value": "6.1\" 120Hz"
+      },
+      {
+        "label": "Chip",
+        "value": "Tensor G3"
+      },
+      {
+        "label": "Camera",
+        "value": "64MP dual"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Display",
+        "value": "6.1\" Actua OLED, 120Hz, 2000 nits HDR"
+      },
+      {
+        "label": "Chip",
+        "value": "Google Tensor G3 + Titan M2"
+      },
+      {
+        "label": "Rear camera",
+        "value": "64MP main + 13MP ultra-wide"
+      },
+      {
+        "label": "Battery",
+        "value": "4492 mAh, 18W wired / 7.5W wireless"
+      },
+      {
+        "label": "Software",
+        "value": "7 years of Android + Pixel Drops"
+      }
+    ],
+    "inBox": [
+      "Pixel 8a",
+      "USB-C cable",
+      "Quick-switch adapter",
+      "Free screen protector fitted"
+    ],
+    "warranty": "1 year Google India warranty"
+  },
+  {
+    "id": "nothing-2a-128",
+    "name": "Nothing Phone (2a)",
+    "subtitle": "8 GB / 128 GB · White",
+    "brand": "Nothing",
+    "category": "new",
+    "kind": "phone",
+    "tone": "slate",
+    "price": 23999,
+    "mrp": 25999,
+    "stock": "in",
+    "stockNote": "12 in store",
+    "blurb": "Glyph lights, a clean Nothing OS build and a 120Hz AMOLED at a price that keeps walking out of the door.",
+    "specs": [
+      {
+        "label": "Display",
+        "value": "6.7\" 120Hz"
+      },
+      {
+        "label": "Chip",
+        "value": "Dimensity 7200 Pro"
+      },
+      {
+        "label": "Battery",
+        "value": "5000 mAh"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Display",
+        "value": "6.7\" FHD+ AMOLED, 120Hz, 1300 nits"
+      },
+      {
+        "label": "Chip",
+        "value": "MediaTek Dimensity 7200 Pro"
+      },
+      {
+        "label": "Rear camera",
+        "value": "50MP main + 50MP ultra-wide"
+      },
+      {
+        "label": "Battery",
+        "value": "5000 mAh, 45W wired"
+      },
+      {
+        "label": "Extras",
+        "value": "Glyph interface, 3 years of OS updates"
+      }
+    ],
+    "inBox": [
+      "Phone (2a)",
+      "USB-C cable",
+      "SIM tool",
+      "Free screen protector fitted"
+    ],
+    "warranty": "1 year Nothing India warranty"
+  },
+  {
+    "id": "oneplus-12r-128",
+    "name": "OnePlus 12R",
+    "subtitle": "8 GB / 128 GB · Cool Blue",
+    "brand": "OnePlus",
+    "category": "new",
+    "kind": "phone",
+    "tone": "blue",
+    "price": 39999,
+    "mrp": 42999,
+    "stock": "in",
+    "stockNote": "6 in store",
+    "blurb": "Snapdragon 8 Gen 2 and 100W SUPERVOOC — nought to a full charge over a lunch break. The gamer favourite on our shelf.",
+    "specs": [
+      {
+        "label": "Display",
+        "value": "6.78\" 120Hz"
+      },
+      {
+        "label": "Chip",
+        "value": "Snapdragon 8 Gen 2"
+      },
+      {
+        "label": "Charging",
+        "value": "100W"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Display",
+        "value": "6.78\" 1.5K ProXDR LTPO 4.0, 120Hz"
+      },
+      {
+        "label": "Chip",
+        "value": "Snapdragon 8 Gen 2, 8 GB LPDDR5X"
+      },
+      {
+        "label": "Rear camera",
+        "value": "50MP OIS + 8MP UW + 2MP macro"
+      },
+      {
+        "label": "Battery",
+        "value": "5500 mAh, 100W SUPERVOOC"
+      },
+      {
+        "label": "Cooling",
+        "value": "9140 mm² dual cryo-velocity chamber"
+      }
+    ],
+    "inBox": [
+      "OnePlus 12R",
+      "100W SUPERVOOC adapter",
+      "Type-C cable",
+      "Case + protector fitted"
+    ],
+    "warranty": "1 year OnePlus India warranty"
+  },
+  {
+    "id": "refurb-iphone-13-128",
+    "name": "iPhone 13",
+    "subtitle": "128 GB · Midnight · Grade A",
+    "brand": "Apple",
+    "category": "refurb",
+    "kind": "phone",
+    "tone": "blue",
+    "price": 38900,
+    "mrp": 59900,
+    "badge": "Best Seller",
+    "stock": "in",
+    "stockNote": "4 in store",
+    "blurb": "Battery health 91%+, no visible marks under 30 cm, and a 6-month shop warranty. Every unit goes through our own 42-point bench test.",
+    "specs": [
+      {
+        "label": "Battery health",
+        "value": "91%+"
+      },
+      {
+        "label": "Condition",
+        "value": "Grade A"
+      },
+      {
+        "label": "Warranty",
+        "value": "6 months"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Condition",
+        "value": "Grade A — no visible scratches at arm’s length"
+      },
+      {
+        "label": "Battery health",
+        "value": "91% or better, verified on bench"
+      },
+      {
+        "label": "Display",
+        "value": "6.1\" Super Retina XDR, original Apple panel"
+      },
+      {
+        "label": "Checks passed",
+        "value": "42-point diagnostic incl. Face ID, cameras, cellular"
+      },
+      {
+        "label": "Accessories",
+        "value": "New third-party USB-C cable, new case"
+      }
+    ],
+    "inBox": [
+      "iPhone 13",
+      "New USB-C to Lightning cable",
+      "Clear case",
+      "Test report card"
+    ],
+    "warranty": "6 months Mickey Mobile warranty"
+  },
+  {
+    "id": "refurb-iphone-12-64",
+    "name": "iPhone 12",
+    "subtitle": "64 GB · Green · Grade A",
+    "brand": "Apple",
+    "category": "refurb",
+    "kind": "phone",
+    "tone": "emerald",
+    "price": 27900,
+    "mrp": 49900,
+    "stock": "low",
+    "stockNote": "Only 2 left",
+    "blurb": "The cheapest way into MagSafe and a Super Retina panel. Freshly re-celled, so battery health reads 100%.",
+    "specs": [
+      {
+        "label": "Battery health",
+        "value": "100% (new cell)"
+      },
+      {
+        "label": "Condition",
+        "value": "Grade A"
+      },
+      {
+        "label": "Warranty",
+        "value": "6 months"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Condition",
+        "value": "Grade A — light frame wear only"
+      },
+      {
+        "label": "Battery",
+        "value": "Brand new cell fitted in-house, 0 cycles"
+      },
+      {
+        "label": "Display",
+        "value": "6.1\" Super Retina XDR, original Apple panel"
+      },
+      {
+        "label": "Checks passed",
+        "value": "42-point diagnostic incl. MagSafe alignment"
+      },
+      {
+        "label": "Unlock status",
+        "value": "Factory unlocked, iCloud clear"
+      }
+    ],
+    "inBox": [
+      "iPhone 12",
+      "New USB-C to Lightning cable",
+      "Clear case",
+      "Test report card"
+    ],
+    "warranty": "6 months Mickey Mobile warranty"
+  },
+  {
+    "id": "refurb-s22-128",
+    "name": "Galaxy S22 5G",
+    "subtitle": "128 GB · Phantom White · Grade A",
+    "brand": "Samsung",
+    "category": "refurb",
+    "kind": "phone",
+    "tone": "violet",
+    "price": 26499,
+    "mrp": 57999,
+    "stock": "in",
+    "stockNote": "3 in store",
+    "blurb": "Compact flagship with a 120Hz AMOLED and a genuine Samsung display verified on our panel tester.",
+    "specs": [
+      {
+        "label": "Battery health",
+        "value": "89%+"
+      },
+      {
+        "label": "Condition",
+        "value": "Grade A"
+      },
+      {
+        "label": "Warranty",
+        "value": "6 months"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Condition",
+        "value": "Grade A — micro-marks on frame, screen clean"
+      },
+      {
+        "label": "Battery health",
+        "value": "89% or better"
+      },
+      {
+        "label": "Display",
+        "value": "6.1\" AMOLED 2X 120Hz, genuine Samsung panel"
+      },
+      {
+        "label": "Checks passed",
+        "value": "42-point diagnostic incl. wireless charging"
+      },
+      {
+        "label": "Unlock status",
+        "value": "Factory unlocked, Knox clear"
+      }
+    ],
+    "inBox": [
+      "Galaxy S22",
+      "New USB-C cable",
+      "Clear case",
+      "Test report card"
+    ],
+    "warranty": "6 months Mickey Mobile warranty"
+  },
+  {
+    "id": "refurb-pixel-7-128",
+    "name": "Pixel 7",
+    "subtitle": "128 GB · Obsidian · Grade B",
+    "brand": "Google",
+    "category": "refurb",
+    "kind": "phone",
+    "tone": "emerald",
+    "price": 22999,
+    "mrp": 43999,
+    "stock": "low",
+    "stockNote": "Last one",
+    "blurb": "Grade B means visible wear on the rail and a lower price — the camera and Tensor G2 are untouched.",
+    "specs": [
+      {
+        "label": "Battery health",
+        "value": "86%+"
+      },
+      {
+        "label": "Condition",
+        "value": "Grade B"
+      },
+      {
+        "label": "Warranty",
+        "value": "6 months"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Condition",
+        "value": "Grade B — visible scuffs on aluminium rail"
+      },
+      {
+        "label": "Battery health",
+        "value": "86% or better"
+      },
+      {
+        "label": "Display",
+        "value": "6.3\" OLED 90Hz, original Google panel"
+      },
+      {
+        "label": "Checks passed",
+        "value": "42-point diagnostic incl. face unlock"
+      },
+      {
+        "label": "Unlock status",
+        "value": "Factory unlocked"
+      }
+    ],
+    "inBox": [
+      "Pixel 7",
+      "New USB-C cable",
+      "Clear case",
+      "Test report card"
+    ],
+    "warranty": "6 months Mickey Mobile warranty"
+  },
+  {
+    "id": "spigen-ultra-hybrid-15",
+    "name": "Spigen Ultra Hybrid MagFit",
+    "subtitle": "iPhone 15 / 15 Pro · Clear",
+    "brand": "Spigen",
+    "category": "cases",
+    "kind": "case",
+    "tone": "blue",
+    "price": 1799,
+    "mrp": 2499,
+    "badge": "Best Seller",
+    "stock": "in",
+    "stockNote": "Stocked for 14 models",
+    "blurb": "The case we fit more than any other: hard PC back that resists yellowing, and a MagSafe ring that actually holds a car mount.",
+    "specs": [
+      {
+        "label": "Drop rating",
+        "value": "MIL-STD 810G"
+      },
+      {
+        "label": "MagSafe",
+        "value": "Yes, N52 ring"
+      },
+      {
+        "label": "Finish",
+        "value": "Anti-yellow PC"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Protection",
+        "value": "MIL-STD 810G-516.6, 1.2 m drop tested"
+      },
+      {
+        "label": "Magnets",
+        "value": "Built-in N52 MagSafe ring, 1100 g pull"
+      },
+      {
+        "label": "Bezels",
+        "value": "Raised 1.2 mm camera and screen lips"
+      },
+      {
+        "label": "Buttons",
+        "value": "Tactile PU-coated side buttons"
+      },
+      {
+        "label": "Compatibility",
+        "value": "iPhone 12 through 15 Pro Max"
+      }
+    ],
+    "inBox": [
+      "Ultra Hybrid case",
+      "Fitting by our counter team"
+    ],
+    "warranty": "6 months against yellowing"
+  },
+  {
+    "id": "esr-kickstand-halolock",
+    "name": "ESR Classic Kickstand",
+    "subtitle": "HaloLock · Clear / Black",
+    "brand": "ESR",
+    "category": "cases",
+    "kind": "case",
+    "tone": "slate",
+    "price": 2299,
+    "mrp": 2999,
+    "stock": "in",
+    "stockNote": "Stocked for 9 models",
+    "blurb": "A metal kickstand that doubles as a finger loop — the one to buy if you watch anything on a train.",
+    "specs": [
+      {
+        "label": "Kickstand",
+        "value": "2-way metal"
+      },
+      {
+        "label": "MagSafe",
+        "value": "HaloLock"
+      },
+      {
+        "label": "Drop rating",
+        "value": "1.8 m"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Protection",
+        "value": "Air-Guard corners, 1.8 m drop tested"
+      },
+      {
+        "label": "Kickstand",
+        "value": "Stainless steel, portrait + landscape"
+      },
+      {
+        "label": "Magnets",
+        "value": "HaloLock array, 1500 g pull"
+      },
+      {
+        "label": "Charging",
+        "value": "15W MagSafe pass-through"
+      },
+      {
+        "label": "Compatibility",
+        "value": "iPhone 13 through 15 Pro Max"
+      }
+    ],
+    "inBox": [
+      "Classic Kickstand case",
+      "Fitting by our counter team"
+    ],
+    "warranty": "6 months manufacturer warranty"
+  },
+  {
+    "id": "nomad-modern-leather",
+    "name": "Nomad Modern Leather",
+    "subtitle": "Horween leather · Rustic Brown",
+    "brand": "Nomad",
+    "category": "cases",
+    "kind": "case",
+    "tone": "amber",
+    "price": 5900,
+    "mrp": 6900,
+    "stock": "low",
+    "stockNote": "Only 3 left",
+    "blurb": "Horween leather that darkens with use, over a polycarbonate shell. The gift-purchase case, and the one people come back for.",
+    "specs": [
+      {
+        "label": "Material",
+        "value": "Horween leather"
+      },
+      {
+        "label": "MagSafe",
+        "value": "Yes"
+      },
+      {
+        "label": "Buttons",
+        "value": "Machined metal"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Material",
+        "value": "Vegetable-tanned Horween leather, develops patina"
+      },
+      {
+        "label": "Shell",
+        "value": "Polycarbonate with TPE bumper"
+      },
+      {
+        "label": "Magnets",
+        "value": "Full MagSafe array, 1200 g pull"
+      },
+      {
+        "label": "Buttons",
+        "value": "CNC-machined metal, hard-anodised"
+      },
+      {
+        "label": "Compatibility",
+        "value": "iPhone 14 and 15 families"
+      }
+    ],
+    "inBox": [
+      "Modern Leather case",
+      "Leather care card",
+      "Fitting by our counter team"
+    ],
+    "warranty": "1 year manufacturer warranty"
+  },
+  {
+    "id": "samsung-standing-grip-s24u",
+    "name": "Standing Grip Case",
+    "subtitle": "Galaxy S24 Ultra · Sand",
+    "brand": "Samsung",
+    "category": "cases",
+    "kind": "case",
+    "tone": "violet",
+    "price": 3499,
+    "mrp": 3999,
+    "stock": "in",
+    "stockNote": "7 in store",
+    "blurb": "Samsung’s own ring-grip case — flip the ring out and it becomes a stand, keep it in and it is a one-handed grip.",
+    "specs": [
+      {
+        "label": "Grip",
+        "value": "Ring + stand"
+      },
+      {
+        "label": "Finish",
+        "value": "Soft-touch"
+      },
+      {
+        "label": "Official",
+        "value": "Samsung OEM"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Design",
+        "value": "Integrated ring that folds flat into the back"
+      },
+      {
+        "label": "Material",
+        "value": "Soft-touch TPU over PC frame"
+      },
+      {
+        "label": "Camera",
+        "value": "Raised metal-look camera surround"
+      },
+      {
+        "label": "Charging",
+        "value": "Qi wireless charging pass-through"
+      },
+      {
+        "label": "Compatibility",
+        "value": "Galaxy S24 Ultra only"
+      }
+    ],
+    "inBox": [
+      "Standing Grip Case",
+      "Fitting by our counter team"
+    ],
+    "warranty": "6 months Samsung warranty"
+  },
+  {
+    "id": "anker-nano-3-30w",
+    "name": "Anker Nano 3",
+    "subtitle": "30W USB-C · Black",
+    "brand": "Anker",
+    "category": "chargers",
+    "kind": "charger",
+    "tone": "blue",
+    "price": 2299,
+    "mrp": 2999,
+    "badge": "Best Seller",
+    "stock": "in",
+    "stockNote": "20+ in store",
+    "blurb": "Smaller than the brick in the box and twice as fast. Fills an iPhone 15 to 50% in half an hour without getting hot.",
+    "specs": [
+      {
+        "label": "Output",
+        "value": "30W PD 3.0"
+      },
+      {
+        "label": "Size",
+        "value": "3.6 cm cube"
+      },
+      {
+        "label": "Tech",
+        "value": "GaN II"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Output",
+        "value": "30W max, PD 3.0 / PPS"
+      },
+      {
+        "label": "Technology",
+        "value": "GaN II with ActiveShield 2.0 thermal monitoring"
+      },
+      {
+        "label": "Ports",
+        "value": "1 × USB-C"
+      },
+      {
+        "label": "Plug",
+        "value": "Foldable Indian 2-pin"
+      },
+      {
+        "label": "Charges",
+        "value": "iPhone 15 to 50% in 30 min; MacBook Air trickle"
+      }
+    ],
+    "inBox": [
+      "Nano 3 charger",
+      "Welcome guide"
+    ],
+    "warranty": "18 months Anker India warranty"
+  },
+  {
+    "id": "baseus-picogo-65w",
+    "name": "Baseus PicoGo 65W",
+    "subtitle": "GaN · 3 ports",
+    "brand": "Baseus",
+    "category": "chargers",
+    "kind": "charger",
+    "tone": "emerald",
+    "price": 3499,
+    "mrp": 4499,
+    "stock": "in",
+    "stockNote": "11 in store",
+    "blurb": "One brick for a laptop, a phone and a pair of buds. The travel charger we recommend to anyone flying out of LGB.",
+    "specs": [
+      {
+        "label": "Output",
+        "value": "65W total"
+      },
+      {
+        "label": "Ports",
+        "value": "2C + 1A"
+      },
+      {
+        "label": "Tech",
+        "value": "GaN III"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Output",
+        "value": "65W total; 65W single-port PD / PPS"
+      },
+      {
+        "label": "Ports",
+        "value": "2 × USB-C, 1 × USB-A"
+      },
+      {
+        "label": "Technology",
+        "value": "GaN III, 6-layer heat dissipation"
+      },
+      {
+        "label": "Protection",
+        "value": "Over-voltage, over-current, over-temp cut-off"
+      },
+      {
+        "label": "Charges",
+        "value": "MacBook Air 0–60% in 45 min"
+      }
+    ],
+    "inBox": [
+      "PicoGo 65W charger",
+      "User manual"
+    ],
+    "warranty": "1 year Baseus India warranty"
+  },
+  {
+    "id": "belkin-3in1-magsafe",
+    "name": "Belkin BoostCharge Pro",
+    "subtitle": "3-in-1 MagSafe 15W · White",
+    "brand": "Belkin",
+    "category": "chargers",
+    "kind": "charger",
+    "tone": "slate",
+    "price": 11900,
+    "mrp": 13900,
+    "stock": "low",
+    "stockNote": "Only 2 left",
+    "blurb": "Official 15W MagSafe for phone, watch and buds on one plate. The desk upgrade people budget for and never regret.",
+    "specs": [
+      {
+        "label": "Phone",
+        "value": "15W MagSafe"
+      },
+      {
+        "label": "Watch",
+        "value": "Fast charge"
+      },
+      {
+        "label": "Buds",
+        "value": "Qi pad"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Phone pad",
+        "value": "Apple-certified 15W MagSafe, adjustable angle"
+      },
+      {
+        "label": "Watch puck",
+        "value": "Apple Watch fast charging, Series 7 and later"
+      },
+      {
+        "label": "Third pad",
+        "value": "5W Qi for AirPods or a second phone"
+      },
+      {
+        "label": "Build",
+        "value": "Aluminium arm with anti-slip silicone base"
+      },
+      {
+        "label": "Cable",
+        "value": "Braided 1.2 m with 40W wall adapter included"
+      }
+    ],
+    "inBox": [
+      "BoostCharge Pro stand",
+      "40W adapter",
+      "1.2 m braided cable"
+    ],
+    "warranty": "2 years Belkin warranty"
+  },
+  {
+    "id": "anker-622-maggo",
+    "name": "Anker 622 MagGo",
+    "subtitle": "5000 mAh magnetic bank",
+    "brand": "Anker",
+    "category": "chargers",
+    "kind": "charger",
+    "tone": "amber",
+    "price": 4499,
+    "mrp": 5499,
+    "stock": "in",
+    "stockNote": "8 in store",
+    "blurb": "Snaps on, folds out into a kickstand, and adds most of a day. Slim enough that it stays in a jeans pocket.",
+    "specs": [
+      {
+        "label": "Capacity",
+        "value": "5000 mAh"
+      },
+      {
+        "label": "Output",
+        "value": "7.5W magnetic"
+      },
+      {
+        "label": "Extra",
+        "value": "Fold-out stand"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Capacity",
+        "value": "5000 mAh — roughly 1 full iPhone 15 charge"
+      },
+      {
+        "label": "Wireless output",
+        "value": "7.5W magnetic, MagSafe-compatible alignment"
+      },
+      {
+        "label": "Wired output",
+        "value": "12W via USB-C"
+      },
+      {
+        "label": "Stand",
+        "value": "Fold-out kickstand, portrait and landscape"
+      },
+      {
+        "label": "Weight",
+        "value": "146 g, 1.4 cm thick"
+      }
+    ],
+    "inBox": [
+      "622 MagGo battery",
+      "USB-C to USB-C cable",
+      "Welcome guide"
+    ],
+    "warranty": "18 months Anker India warranty"
+  },
+  {
+    "id": "airpods-pro-2-usbc",
+    "name": "AirPods Pro 2",
+    "subtitle": "USB-C · with MagSafe case",
+    "brand": "Apple",
+    "category": "audio",
+    "kind": "audio",
+    "tone": "blue",
+    "price": 22900,
+    "mrp": 24900,
+    "badge": "Best Seller",
+    "stock": "in",
+    "stockNote": "7 in store",
+    "blurb": "Adaptive Audio genuinely works on a bus. Still the pair we hand to iPhone owners without a second thought.",
+    "specs": [
+      {
+        "label": "ANC",
+        "value": "2× vs gen 1"
+      },
+      {
+        "label": "Battery",
+        "value": "6 hrs / 30 hrs"
+      },
+      {
+        "label": "Case",
+        "value": "USB-C, IP54"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Noise cancelling",
+        "value": "Adaptive Audio, Transparency, Conversation Awareness"
+      },
+      {
+        "label": "Chip",
+        "value": "Apple H2"
+      },
+      {
+        "label": "Battery",
+        "value": "6 hrs on a charge, 30 hrs with the case"
+      },
+      {
+        "label": "Case",
+        "value": "USB-C, MagSafe and Qi, IP54, speaker + lanyard loop"
+      },
+      {
+        "label": "Fit",
+        "value": "Four silicone tip sizes (XS–L) included"
+      }
+    ],
+    "inBox": [
+      "AirPods Pro 2",
+      "MagSafe charging case",
+      "Four tip sizes",
+      "USB-C cable"
+    ],
+    "warranty": "1 year Apple India warranty"
+  },
+  {
+    "id": "galaxy-buds3-pro",
+    "name": "Galaxy Buds3 Pro",
+    "subtitle": "Silver · blade design",
+    "brand": "Samsung",
+    "category": "audio",
+    "kind": "audio",
+    "tone": "violet",
+    "price": 17999,
+    "mrp": 19999,
+    "stock": "in",
+    "stockNote": "6 in store",
+    "blurb": "Dual drivers, 24-bit Hi-Fi over Galaxy devices, and the blade lights that make them instantly recognisable.",
+    "specs": [
+      {
+        "label": "Drivers",
+        "value": "Dual 2-way"
+      },
+      {
+        "label": "Battery",
+        "value": "6 hrs / 26 hrs"
+      },
+      {
+        "label": "Codec",
+        "value": "SSC UHQ 24-bit"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Drivers",
+        "value": "2-way: 10.5 mm woofer + 6.1 mm planar tweeter"
+      },
+      {
+        "label": "Noise cancelling",
+        "value": "Adaptive ANC with siren detection"
+      },
+      {
+        "label": "Battery",
+        "value": "6 hrs ANC on, 26 hrs with the case"
+      },
+      {
+        "label": "Codecs",
+        "value": "SSC UHQ 24-bit, AAC, SBC"
+      },
+      {
+        "label": "Water resistance",
+        "value": "IP57 buds"
+      }
+    ],
+    "inBox": [
+      "Buds3 Pro",
+      "Charging case",
+      "Three tip sizes",
+      "USB-C cable"
+    ],
+    "warranty": "1 year Samsung India warranty"
+  },
+  {
+    "id": "sony-wf-1000xm5",
+    "name": "Sony WF-1000XM5",
+    "subtitle": "Black · flagship ANC",
+    "brand": "Sony",
+    "category": "audio",
+    "kind": "audio",
+    "tone": "slate",
+    "price": 19990,
+    "mrp": 24990,
+    "stock": "low",
+    "stockNote": "Only 3 left",
+    "blurb": "The quietest earbuds in the shop. If noise cancelling is the whole reason you are buying, buy these.",
+    "specs": [
+      {
+        "label": "ANC",
+        "value": "Dual processor"
+      },
+      {
+        "label": "Battery",
+        "value": "8 hrs / 24 hrs"
+      },
+      {
+        "label": "Codec",
+        "value": "LDAC"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Noise cancelling",
+        "value": "HD QN2e + V2 processors, six microphones"
+      },
+      {
+        "label": "Driver",
+        "value": "8.4 mm Dynamic Driver X"
+      },
+      {
+        "label": "Battery",
+        "value": "8 hrs ANC on, 24 hrs with the case"
+      },
+      {
+        "label": "Codecs",
+        "value": "LDAC, AAC, SBC, DSEE Extreme upscaling"
+      },
+      {
+        "label": "Calls",
+        "value": "Bone-conduction sensor + AI noise reduction"
+      }
+    ],
+    "inBox": [
+      "WF-1000XM5",
+      "Charging case",
+      "Four tip sizes",
+      "USB-C cable"
+    ],
+    "warranty": "1 year Sony India warranty"
+  },
+  {
+    "id": "nothing-ear-a",
+    "name": "Nothing Ear (a)",
+    "subtitle": "Yellow · transparent",
+    "brand": "Nothing",
+    "category": "audio",
+    "kind": "audio",
+    "tone": "amber",
+    "price": 7299,
+    "mrp": 7999,
+    "badge": "New Arrival",
+    "stock": "in",
+    "stockNote": "15 in store",
+    "blurb": "Bass that punches far above ₹7,500, 45 dB of ANC, and the only buds in the case that people ask about.",
+    "specs": [
+      {
+        "label": "ANC",
+        "value": "Up to 45 dB"
+      },
+      {
+        "label": "Battery",
+        "value": "9.5 hrs / 42.5 hrs"
+      },
+      {
+        "label": "Driver",
+        "value": "11 mm dynamic"
+      }
+    ],
+    "fullSpecs": [
+      {
+        "label": "Driver",
+        "value": "11 mm custom dynamic driver, PMI + TPU diaphragm"
+      },
+      {
+        "label": "Noise cancelling",
+        "value": "Smart ANC up to 45 dB with adaptive mode"
+      },
+      {
+        "label": "Battery",
+        "value": "9.5 hrs buds, 42.5 hrs total (ANC off)"
+      },
+      {
+        "label": "Codecs",
+        "value": "LDAC, AAC, SBC"
+      },
+      {
+        "label": "Water resistance",
+        "value": "IP54 buds, IPX2 case"
+      }
+    ],
+    "inBox": [
+      "Ear (a)",
+      "Charging case",
+      "Three tip sizes",
+      "USB-C cable"
+    ],
+    "warranty": "1 year Nothing India warranty"
+  }
+]
