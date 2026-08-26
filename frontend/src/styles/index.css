@@ -1,0 +1,241 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   Design tokens
+   Semantic names first, hex second — every surface in the app refers to these
+   rather than to a raw colour, so retheming is a change in one block.
+   ========================================================================== */
+@layer base {
+  :root {
+    --paper: #fbf6e9;
+    --paper-raised: #fffdf6;
+    --paper-sunk: #f4edd9;
+    --ink: #141210;
+
+    --accent: #2b44ff; /* electric — primary action */
+    --accent-2: #ffe01f; /* acid — highlight, price, emphasis */
+    --accent-3: #ff4a1c; /* flare — alerts, sale */
+    --accent-4: #a6f32b; /* lime — success, in stock */
+
+    --border-w: 3px;
+    --shadow-o: 5px;
+
+    color-scheme: light;
+  }
+
+  * {
+    @apply border-ink;
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-paper-100 font-sans text-ink antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Display type is set in Archivo Black — already heavy, so never bolded
+     further, and always tracked in rather than out. */
+  h1,
+  h2,
+  h3 {
+    @apply font-display uppercase text-ink;
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+  }
+
+  h4,
+  h5 {
+    @apply font-sans font-bold text-ink;
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background: var(--accent-2);
+    color: var(--ink);
+  }
+
+  /* Focus is a hard ink ring — no soft glow anywhere in this system. */
+  :focus-visible {
+    @apply outline-none ring-[3px] ring-ink ring-offset-2 ring-offset-paper-100;
+    border-radius: 0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--paper-sunk);
+    border-left: 3px solid var(--ink);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--ink);
+    border: 3px solid var(--paper-sunk);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+  }
+
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='date']::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+  }
+}
+
+/* ==========================================================================
+   Components — the five primitives the entire look is built from
+   ========================================================================== */
+@layer components {
+  /* 1. The slab: thick ink border + hard offset shadow, zero radius. */
+  .slab {
+    @apply border-3 border-ink bg-paper-50 shadow-brut;
+  }
+
+  .slab-sm {
+    @apply border-3 border-ink bg-paper-50 shadow-brut-sm;
+  }
+
+  .slab-lg {
+    @apply border-3 border-ink bg-paper-50 shadow-brut-lg;
+  }
+
+  /* 2. The press: hovering pushes the slab into its own shadow.
+        Interactive slabs only — a static card that moves is just noise. */
+  .press {
+    @apply transition-[transform,box-shadow] duration-150 ease-snap;
+  }
+  .press:hover {
+    @apply translate-x-[3px] translate-y-[3px] shadow-brut-xs;
+  }
+  .press:active {
+    @apply translate-x-[5px] translate-y-[5px] shadow-none;
+  }
+
+  .press-lg {
+    @apply transition-[transform,box-shadow] duration-150 ease-snap;
+  }
+  .press-lg:hover {
+    @apply translate-x-[4px] translate-y-[4px] shadow-brut-sm;
+  }
+  .press-lg:active {
+    @apply translate-x-[8px] translate-y-[8px] shadow-none;
+  }
+
+  /* 3. The label: mono, uppercase, wide — used for every eyebrow and meta line. */
+  .label {
+    @apply font-mono text-2xs font-bold uppercase tracking-[0.18em];
+  }
+
+  .eyebrow {
+    @apply inline-block border-3 border-ink bg-acid px-3 py-1 font-mono text-2xs font-bold uppercase tracking-[0.18em] text-ink;
+  }
+
+  /* 4. The rule: a thick divider that reads as a structural element. */
+  .rule {
+    @apply border-t-3 border-ink;
+  }
+
+  /* 5. The sticker: a rotated tag that breaks the grid on purpose. */
+  .sticker {
+    @apply inline-block border-3 border-ink px-3 py-1 font-display text-xs uppercase shadow-brut-xs;
+  }
+
+  /* ---------- Layout ---------- */
+  .container-x {
+    @apply mx-auto w-full max-w-[86rem] px-4 sm:px-6 lg:px-10;
+  }
+
+  .section-y {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  /* ---------- Decorative ---------- */
+  .stripe-band {
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--ink) 0 10px,
+      transparent 10px 20px
+    );
+  }
+
+  /* Print-texture dot field. Uses currentColor so the tone comes from a
+     text-* utility on the same element. */
+  .halftone {
+    background-image: radial-gradient(currentColor 1.5px, transparent 1.6px);
+    background-size: 12px 12px;
+  }
+
+  .grid-paper {
+    background-image:
+      linear-gradient(rgba(20, 18, 16, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(20, 18, 16, 0.08) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.05),
+      transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.05);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer utilities {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Outlined display type — used sparingly, for one word in a headline. */
+  .text-outline {
+    -webkit-text-stroke: 2px var(--ink);
+    color: transparent;
+  }
+
+  .writing-vertical {
+    writing-mode: vertical-rl;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .press:hover,
+  .press-lg:hover {
+    transform: none;
+  }
+}
