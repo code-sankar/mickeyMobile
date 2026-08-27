@@ -6,6 +6,7 @@ import { WhatsAppButton } from '../../../components/ui/WhatsAppButton'
 import { Chip, Field, FieldError, TextArea, TextInput } from '../../../components/ui/Field'
 import { timeSlots, serviceModes } from '../../../data/repairs'
 import { waMessage } from '../../../lib/whatsapp'
+import { api } from '../../../lib/api'
 import { cx, money, ticketId } from '../../../lib/utils'
 
 const EMPTY = { name: '', phone: '', date: '', slot: '', mode: 'walkin', notes: '' }
@@ -30,15 +31,19 @@ function validate(values) {
  * Booking form for a quote produced by the estimator. Rendered once by
  * `BookingProvider`, so every CTA on every route drives this same dialog.
  *
- * The form holds no backend: on submit it issues a ticket number locally and
- * hands the whole booking to WhatsApp as a prefilled message. For a shop that
- * already runs on WhatsApp that is the delivery mechanism, not a stub — swap
- * `handleSubmit` for a CRM call only if one ever exists.
+ * Submitting books a real slot through the API, which allocates a unique
+ * ticket number and stores the quote as the server priced it. If the API is
+ * unreachable — down, cold, or simply not deployed — the form falls back to
+ * what it always did: a locally-issued ticket handed to WhatsApp as a
+ * prefilled message. The shop runs on WhatsApp either way, so the fallback is
+ * a working submission rather than an error state, and the confirmation screen
+ * says which of the two happened.
  */
 export function BookingModal({ open, onClose, quote }) {
   const [values, setValues] = useState(EMPTY)
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(null)
+  const [submitting, setSubmitting] = useState(false)
 
   const min = useMemo(todayISO, [])
 
@@ -48,12 +53,43 @@ export function BookingModal({ open, onClose, quote }) {
     setErrors((e) => (e[key] ? { ...e, [key]: undefined } : e))
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
+    if (submitting) return
+
     const found = validate(values)
     setErrors(found)
     if (Object.keys(found).length) return
-    setSubmitted({ ...values, id: ticketId() })
+
+    setSubmitting(true)
+    try {
+      // The server is sent the estimator's *selection*, never its price — it
+      // reprices from the live list so the ticket cannot be talked down.
+      const booking = await api.createBooking({
+        ...values,
+        quote: quote
+          ? {
+              brandId: quote.brand.id,
+              modelId: quote.model.id,
+              issueId: quote.issue.id,
+              gradeId: quote.grade.id,
+            }
+          : null,
+      })
+      setSubmitted({ ...values, id: booking.ticket, confirmed: true })
+    } catch (error) {
+      // A rejected field is the user's to fix, so show it rather than
+      // silently booking around it.
+      if (error.isValidation && error.details) {
+        setErrors(error.details)
+        return
+      }
+      // Anything else is our problem, not theirs: issue a local ticket and let
+      // WhatsApp carry the booking, exactly as it did before there was an API.
+      setSubmitted({ ...values, id: ticketId(), confirmed: false })
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const handleClose = () => {
@@ -63,6 +99,7 @@ export function BookingModal({ open, onClose, quote }) {
       setValues(EMPTY)
       setErrors({})
       setSubmitted(null)
+      setSubmitting(false)
     }, 250)
   }
 
@@ -206,8 +243,13 @@ export function BookingModal({ open, onClose, quote }) {
             <p className="text-xs font-medium text-ink-700">
               By booking you agree to our diagnosis-first policy — no work starts without your approval.
             </p>
-            <Button type="submit" size="lg" className="w-full shrink-0 sm:w-auto">
-              Confirm booking
+            <Button
+              type="submit"
+              size="lg"
+              disabled={submitting}
+              className="w-full shrink-0 sm:w-auto"
+            >
+              {submitting ? 'Booking…' : 'Confirm booking'}
               <Check className="h-4 w-4" strokeWidth={3} />
             </Button>
           </div>
@@ -235,8 +277,19 @@ function Confirmation({ booking, quote, onClose }) {
       <p className="mt-2 font-display text-3xl uppercase">{booking.id}</p>
 
       <p className="mx-auto mt-4 max-w-md text-pretty text-sm font-medium leading-relaxed text-ink-800">
-        Thanks {booking.name.split(' ')[0]} — here are your details. Send them to us on WhatsApp to lock the
-        slot in, and we&apos;ll confirm on <span className="font-mono font-bold">{booking.phone}</span>.
+        {booking.confirmed ? (
+          <>
+            Thanks {booking.name.split(' ')[0]} — your slot is booked and this ticket is on our
+            system. We&apos;ll confirm on <span className="font-mono font-bold">{booking.phone}</span>{' '}
+            within 15 minutes during shop hours.
+          </>
+        ) : (
+          <>
+            Thanks {booking.name.split(' ')[0]} — here are your details. Send them to us on WhatsApp
+            to lock the slot in, and we&apos;ll confirm on{' '}
+            <span className="font-mono font-bold">{booking.phone}</span>.
+          </>
+        )}
       </p>
 
       <dl className="mt-7 border-3 border-ink bg-paper-50 text-left shadow-brut-sm">
@@ -251,8 +304,9 @@ function Confirmation({ booking, quote, onClose }) {
           message={waMessage.booking({ ...booking, prettyDate: pretty }, quote, mode?.label)}
           size="lg"
           className="flex-1"
+          variant={booking.confirmed ? 'paper' : undefined}
         >
-          Send to WhatsApp
+          {booking.confirmed ? 'Also send on WhatsApp' : 'Send to WhatsApp'}
         </WhatsAppButton>
         <Button onClick={onClose} variant="paper" size="lg" className="flex-1">
           Done
@@ -261,7 +315,9 @@ function Confirmation({ booking, quote, onClose }) {
 
       <p className="mt-5 flex items-center justify-center gap-1.5 text-center font-mono text-[10px] font-bold uppercase tracking-wider text-ink-500">
         <CircleAlert className="h-3 w-3 shrink-0" strokeWidth={3} />
-        The form itself stores nothing — WhatsApp is how the booking reaches us.
+        {booking.confirmed
+          ? 'Booked on our system. Quote your ticket number at the counter.'
+          : 'We could not reach our system — WhatsApp is how this booking gets to us.'}
       </p>
     </div>
   )

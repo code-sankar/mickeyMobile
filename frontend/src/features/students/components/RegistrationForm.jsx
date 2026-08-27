@@ -17,7 +17,7 @@ import { RegistrationSent } from './RegistrationSent'
 const maxDob = latestEligibleDob()
 
 export function RegistrationForm({ id = 'register' }) {
-  const { values, errors, age, submitted, set, submit, reset } = useStudentRegistration()
+  const { values, errors, age, submitted, submitting, set, submit, reset } = useStudentRegistration()
 
   if (submitted) return <RegistrationSent submitted={submitted} onReset={reset} id={id} />
 
@@ -230,12 +230,12 @@ export function RegistrationForm({ id = 'register' }) {
         </fieldset>
 
         <div className="border-t-3 border-ink pt-6">
-          <Button type="submit" size="lg" className="w-full">
-            Register and send my details
+          <Button type="submit" size="lg" disabled={submitting} className="w-full">
+            {submitting ? 'Registering…' : 'Register and send my details'}
           </Button>
           <p className="mt-3 text-center text-2xs font-medium leading-relaxed text-ink-700">
-            Opens WhatsApp with your registration filled in. You attach your student ID photo there —
-            it is never uploaded to this website.
+            Your student ID photo is never uploaded to this website — you show it at the counter, or
+            attach it in WhatsApp on the next screen.
           </p>
         </div>
       </form>

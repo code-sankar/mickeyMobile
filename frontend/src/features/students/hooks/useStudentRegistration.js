@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { isOldEnough, ageFrom } from '../../../lib/studentDiscount'
 import { MINIMUM_AGE, deviceAgeOptions } from '../../../data/students'
 import { waLink, waMessage } from '../../../lib/whatsapp'
+import { api } from '../../../lib/api'
 
 const EMPTY = {
   name: '',
@@ -48,15 +49,21 @@ function validate(values) {
 /**
  * Registration form state.
  *
- * There is no backend, so "submitting" means handing the completed
- * registration to WhatsApp with everything filled in — see
- * `waMessage.studentRegistration`. The hook returns that link rather than
- * navigating itself, so the view decides how it opens.
+ * Submitting records the registration through the API and, either way, hands
+ * the student a prefilled WhatsApp message so they can attach their ID card —
+ * the card is never uploaded to the website, so that last step is a chat no
+ * matter what the API does.
+ *
+ * If the API is unreachable the WhatsApp message becomes the whole submission,
+ * which is what it was before there was an API. `submitted.stored` says which
+ * happened, because the confirmation screen makes a promise about what is held
+ * and that promise has to match what actually occurred.
  */
 export function useStudentRegistration() {
   const [values, setValues] = useState(EMPTY)
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(null)
+  const [submitting, setSubmitting] = useState(false)
 
   const set = useCallback(
     (key) => (event) => {
@@ -73,33 +80,62 @@ export function useStudentRegistration() {
 
   const age = useMemo(() => ageFrom(values.dob), [values.dob])
 
+  /** Focus the first bad field so a long form does not strand someone. */
+  const focusFirstError = () => {
+    const first = document.querySelector('[data-invalid="true"]')
+    first?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    first?.focus?.({ preventScroll: true })
+  }
+
   const submit = useCallback(
-    (event) => {
+    async (event) => {
       event?.preventDefault()
+      if (submitting) return null
+
       const found = validate(values)
       setErrors(found)
       if (Object.keys(found).length) {
-        // Send focus to the first problem so a long form does not strand
-        // someone at the bottom wondering what failed.
-        const first = document.querySelector('[data-invalid="true"]')
-        first?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-        first?.focus?.({ preventScroll: true })
+        focusFirstError()
         return null
       }
 
       const label = deviceAgeOptions.find((o) => o.id === values.deviceAge)?.label
       const link = waLink(waMessage.studentRegistration(values, label))
-      setSubmitted({ values, link })
+
+      setSubmitting(true)
+      try {
+        // The form's own `values` are posted unreshaped — the API takes the
+        // same flat field names the form renders, and returns 422 details
+        // keyed to them.
+        const registration = await api.registerStudent(values)
+        setSubmitted({ values, link, stored: true, id: registration.registrationId })
+      } catch (error) {
+        // A field the server rejected is the student's to fix — show it and
+        // stay on the form rather than sending them to WhatsApp with a
+        // registration we already know is wrong.
+        if (error.isValidation && error.details) {
+          setErrors(error.details)
+          focusFirstError()
+          return null
+        }
+        // Anything else is ours. WhatsApp carries the whole registration, as
+        // it did before the API existed.
+        setSubmitted({ values, link, stored: false, id: null })
+      } finally {
+        setSubmitting(false)
+      }
+
       return link
     },
-    [values],
+    [values, submitting],
   )
 
   const reset = useCallback(() => {
     setValues(EMPTY)
     setErrors({})
     setSubmitted(null)
+    setSubmitting(false)
   }, [])
 
-  return { values, errors, age, submitted, set, submit, reset }
+  return { values, errors, age, submitted, submitting, set, submit, reset }
 }
