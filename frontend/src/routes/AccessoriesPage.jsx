@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { ArrowRight, Check, Wrench } from 'lucide-react'
 import { AccessoryGroups } from '../features/shop/components/AccessoryGroups'
 import { ProductCard } from '../features/shop/components/ProductCard'
@@ -10,6 +11,8 @@ import { Reveal } from '../components/ui/Reveal'
 import { listAccessories } from '../data/selectors'
 import { waMessage } from '../lib/whatsapp'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
+import { useStructuredData } from '../hooks/useStructuredData'
+import { breadcrumbSchema, itemListSchema } from '../lib/seo'
 import { money } from '../lib/utils'
 
 /**
@@ -31,6 +34,19 @@ export function AccessoriesPage() {
     'Phone accessories',
     'Cases, fast chargers, power banks and wireless audio — fitted and tested at the counter in TDA Market, Tinsukia. Nothing drop-shipped.',
   )
+
+  const schema = useMemo(
+    () => ({
+      '@context': 'https://schema.org',
+      '@graph': [
+        itemListSchema(listAccessories(), 'Phone accessories at Mickey Mobile'),
+        breadcrumbSchema([{ name: 'Accessories', path: '/accessories' }]),
+      ],
+    }),
+    [],
+  )
+
+  useStructuredData(schema)
 
   return (
     <>

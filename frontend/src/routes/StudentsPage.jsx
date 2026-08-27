@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { ArrowRight, BadgeCheck, Mail } from 'lucide-react'
 import { OfferTiers } from '../features/students/components/OfferTiers'
 import { SavingsCalculator } from '../features/students/components/SavingsCalculator'
@@ -9,7 +10,9 @@ import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
 import { Reveal } from '../components/ui/Reveal'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
-import { discountTiers, MINIMUM_SPEND, MINIMUM_AGE } from '../data/students'
+import { useStructuredData } from '../hooks/useStructuredData'
+import { breadcrumbSchema, faqSchema } from '../lib/seo'
+import { discountTiers, eligibility, MINIMUM_SPEND, MINIMUM_AGE } from '../data/students'
 import { money } from '../lib/utils'
 
 const percents = discountTiers.map((t) => t.percent)
@@ -37,6 +40,45 @@ export function StudentsPage() {
     'Student repair discount',
     `Students ${MINIMUM_AGE}+ get ${percents[0]}–${percents[percents.length - 1]}% off repair bills over ${money(MINIMUM_SPEND)} at Mickey Mobile, Tinsukia. Register once with your student ID.`,
   )
+
+  /**
+   * "Student discount phone repair" is a distinct query from "phone repair",
+   * and the eligibility rules are the thing people search for. These answers
+   * are the same ones the eligibility list and the tier table render below.
+   */
+  const schema = useMemo(
+    () => ({
+      '@context': 'https://schema.org',
+      '@graph': [
+        breadcrumbSchema([{ name: 'Students', path: '/students' }]),
+        faqSchema([
+          {
+            question: 'Who qualifies for the student repair discount?',
+            answer: eligibility.map((rule) => `${rule.title}: ${rule.detail}`).join(' '),
+          },
+          {
+            question: 'How much is the student discount?',
+            answer: discountTiers
+              .map(
+                (tier) =>
+                  `${tier.percent}% on bills ${
+                    tier.max ? `from ${money(tier.min)} to ${money(tier.max)}` : `over ${money(tier.min)}`
+                  } — ${tier.blurb}`,
+              )
+              .join(' '),
+          },
+          {
+            question: 'Do I need to upload my student ID?',
+            answer:
+              'No. The card is never uploaded to this website. You show it at the counter, or attach a photo in WhatsApp, and it is checked and then discarded.',
+          },
+        ]),
+      ],
+    }),
+    [],
+  )
+
+  useStructuredData(schema)
 
   return (
     <>

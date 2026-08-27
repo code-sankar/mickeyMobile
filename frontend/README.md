@@ -210,10 +210,14 @@ One number lives in `site.whatsappNumber`. Every link is built from it by `src/l
 | Shop footnote → *Get a valuation* | A trade-in template |
 | Estimator → *WhatsApp us the model* | An unlisted-model quote template |
 
-The booking form is the important one. It has no backend: on submit it issues a ticket number
-locally and the confirmation hands the entire booking to WhatsApp as a prefilled message. For a shop
-that already runs on WhatsApp that **is** the submission path, not a stub. `waLink()` only opens the
-composer — the customer still presses send, so nothing is transmitted on their behalf.
+The booking form is the important one. With `VITE_API_URL` set it books a real slot through the
+API, which allocates a unique ticket number and reprices the quote server-side. Without it — or if
+the API is unreachable — it does what it always did: issues a ticket locally and hands the whole
+booking to WhatsApp as a prefilled message. For a shop that already runs on WhatsApp that **is** a
+submission path, not a stub, which is why it is the fallback rather than an error screen. The
+confirmation says which of the two happened, so a customer is never told a slot is booked when it
+only reached the chat. `waLink()` only opens the composer — the customer still presses send, so
+nothing is transmitted on their behalf.
 
 To change the tone of every message, edit the builders in `src/lib/whatsapp.js`. To add a new CTA,
 use `<WhatsAppButton message={…} />`; its `message` prop is required so a new call site cannot
@@ -239,15 +243,20 @@ change `discountTiers` and nothing else needs touching.
 
 ### How a registration actually reaches the shop
 
-There is no backend, so the registration is submitted the same way a booking is —
-as a WhatsApp message with every field written out. The student presses send.
+With `VITE_API_URL` set the registration is recorded through the API, with each
+consent stored alongside the exact wording that was shown. Without it, or if the
+API is unreachable, it is submitted the way a booking is — as a WhatsApp message
+with every field written out, which the student presses send on.
+
+Either way there is a step left, because of the next paragraph.
 
 **The ID card is deliberately never handled by this website.** There is no file
-input on the page. The last line of the message asks the student to attach the
-photo in the chat, so it goes from their camera roll into an encrypted
-conversation and never touches our origin, our logs, or a third-party form
-service. A static site has nowhere to put an identity document safely, and
-pretending otherwise would be worse than not offering the feature.
+input on the page, and no endpoint on the API that would accept one. The card is
+shown at the counter, or attached by the student in the chat — so it goes from
+their camera roll into an encrypted conversation and never touches our origin,
+our logs, or a third-party form service. Neither a static site nor this API has
+anywhere to put an identity document safely, and pretending otherwise would be
+worse than not offering the feature.
 
 ### Consent
 
@@ -301,11 +310,23 @@ presents the sample set as a Google rating.
 ### Why it is fetched, not stored
 
 Reviews are Google's content. The Places API terms allow caching Place IDs but
-not review bodies, author names or ratings, so `src/lib/googlePlaces.js` fetches
-them in the visitor's browser on each visit and renders them straight from the
-response. Nothing is written into `src/data`, and there is no scraping of the
-Maps page — that is against Google's terms and breaks the moment their markup
-changes.
+not review bodies, author names or ratings, so they are fetched on each visit
+and rendered straight from the response. Nothing is written into `src/data` or
+into the API's database, and there is no scraping of the Maps page — that is
+against Google's terms and breaks the moment their markup changes.
+
+There are two ways to fetch them, and the first is preferred:
+
+1. **Through the API** (`VITE_API_URL`). The key lives on the server, so it
+   never ships in this bundle and can be restricted by **IP** rather than by
+   referrer. One upstream call also serves every visitor instead of one per
+   page load.
+2. **Direct from the browser** (`VITE_GOOGLE_*`), via `src/lib/googlePlaces.js`.
+   Kept so a deployment without the API behaves as it did before there was one.
+
+`useGoogleReviews` tries the API first, then the browser key, then the bundled
+sample set — and reports which it used in `source`, so sample content can never
+be presented as a Google rating.
 
 **Google returns at most five reviews per place.** There is no supported way to
 page past that. If you need the full wall, that is what the paid widgets
@@ -314,10 +335,16 @@ redistribute more.
 
 ### Setup
 
+Prefer configuring this on the **backend** (`GOOGLE_MAPS_API_KEY` /
+`GOOGLE_PLACE_ID` in `backend/.env`) and pointing `VITE_API_URL` at it. The
+steps below are for the browser-key fallback.
+
 1. Google Cloud Console → **Credentials** → create an API key.
 2. Enable **Maps JavaScript API** and **Places API (New)** on it.
 3. Restrict the key by **HTTP referrer** to your domains. The key ships in the
    client bundle — referrer restriction is the thing protecting it, not secrecy.
+   (A key given to the backend instead can be restricted by IP, which a page
+   cannot forge its way past. That is the reason to prefer it.)
 4. Find the **Place ID** (it looks like `ChIJ…`) with Google's
    [Place ID Finder](https://developers.google.com/maps/documentation/places/web-service/place-id).
    This is *not* the `cid` in the Maps URL.
@@ -359,28 +386,26 @@ results comes from the Business Profile itself, not from the page.
 
 ## Going live
 
-Everything below is a deliberate stub. Each is a one-file change.
+See [`../DEPLOYMENT.md`](../DEPLOYMENT.md) for hosting both halves. Everything below is content or
+configuration still to replace.
 
-1. **Server rewrite** — the app uses `BrowserRouter`, so every path must serve `index.html` or a
-   deep link like `/shop/iphone-15-128` will 404 on refresh. Netlify: `/* /index.html 200` in
-   `public/_redirects`. Vercel: a rewrite to `/index.html`. Nginx: `try_files $uri /index.html`.
-   `npm run preview` already does this locally.
-2. **Business details** — `src/data/site.js`. The name and postal address already match the Google
+1. **Business details** — `src/data/site.js`. The name and postal address already match the Google
    listing. Still to replace: the phone number (`+91 98765 43210` is a documentation placeholder),
    `whatsappNumber` (same placeholder, and it drives *every* WhatsApp link on the site), and the map
    `geo` coordinates (currently Tinsukia town centre, not TDA Market's exact rooftop). Mirror the same
    values in the `LocalBusiness` JSON-LD block in `index.html`. The Google listing is already wired:
    `site.google.cid` points at the real profile and drives directions and the review links.
-3. **Booking submissions** — already live via WhatsApp; see the section above. Only swap
-   `handleSubmit` in `BookingModal.jsx` for an API call if a CRM ever exists.
-4. **Map** — `src/features/visit/components/MapPanel.jsx` draws an SVG stand-in. Swap the `<svg>` for a
+2. **Booking and registration submissions** — live either way: through the API when `VITE_API_URL`
+   is set, and through WhatsApp when it is not or when the API cannot be reached. Nothing left to
+   stub out.
+3. **Map** — `src/features/visit/components/MapPanel.jsx` draws an SVG stand-in. Swap the `<svg>` for a
    Google Maps or Mapbox embed; the frame, address card and directions button stay as they are.
-5. **Google reviews** — see the section above; two values in `.env`.
-6. **Product photography** — `ProductVisual.jsx` draws silhouettes. Replace it with `<img>` and add an
+4. **Google reviews** — see the section above. Prefer configuring the key on the backend.
+5. **Product photography** — `ProductVisual.jsx` draws silhouettes. Replace it with `<img>` and add an
    `image` field to each entry in `src/data/products.js`.
-7. **Currency** — `CURRENCY` in `src/lib/utils.js` drives every price format. Change the locale and
+6. **Currency** — `CURRENCY` in `src/lib/utils.js` drives every price format. Change the locale and
    symbol there, then re-price `products.js` and `repairs.js`.
-8. **Social links** — the `socials` array in `src/components/layout/SiteFooter.jsx`.
+7. **Social links** — the `socials` array in `src/components/layout/SiteFooter.jsx`.
 
 ---
 

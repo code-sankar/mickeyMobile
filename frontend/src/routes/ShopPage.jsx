@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { CatalogToolbar } from '../features/shop/components/CatalogToolbar'
 import { CatalogGrid } from '../features/shop/components/CatalogGrid'
 import { useCatalogFilters } from '../features/shop/hooks/useCatalogFilters'
@@ -5,6 +6,8 @@ import { PageHeader } from '../components/ui/PageHeader'
 import { Button } from '../components/ui/Button'
 import { waLink, waMessage } from '../lib/whatsapp'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
+import { useStructuredData } from '../hooks/useStructuredData'
+import { breadcrumbSchema, itemListSchema } from '../lib/seo'
 
 export function ShopPage() {
   const { category, query, sort, results, update, reset, isFiltered } = useCatalogFilters()
@@ -13,6 +16,23 @@ export function ShopPage() {
     'Shop phones & accessories',
     'New and certified refurbished handsets, cases, chargers and audio — bench-tested before they reach the shelf at Mickey Mobile, Tinsukia.',
   )
+
+  /**
+   * The catalogue as a list, so a crawler reads the shelf as products rather
+   * than prose. Built from the filtered results, which is what is on screen.
+   */
+  const schema = useMemo(
+    () => ({
+      '@context': 'https://schema.org',
+      '@graph': [
+        itemListSchema(results, 'Phones and accessories at Mickey Mobile'),
+        breadcrumbSchema([{ name: 'Shop', path: '/shop' }]),
+      ],
+    }),
+    [results],
+  )
+
+  useStructuredData(schema)
 
   return (
     <>

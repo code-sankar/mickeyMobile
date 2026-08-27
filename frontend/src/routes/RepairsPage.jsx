@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Estimator } from '../features/repairs/components/Estimator'
 import { ProcessTimeline } from '../features/marketing/components/ProcessTimeline'
 import { GuaranteeBand } from '../features/marketing/components/GuaranteeBand'
@@ -8,6 +9,8 @@ import { SectionHeading } from '../components/ui/SectionHeading'
 import { Reveal } from '../components/ui/Reveal'
 import { listIssues, startingPriceFor } from '../data/selectors'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
+import { useStructuredData } from '../hooks/useStructuredData'
+import { breadcrumbSchema, faqSchema, repairServiceSchema } from '../lib/seo'
 import { money } from '../lib/utils'
 
 export function RepairsPage() {
@@ -15,6 +18,56 @@ export function RepairsPage() {
     'Repairs & instant estimate',
     'Pick your brand, model and fault for a real repair price — parts, labour and warranty included. Same-day screen and battery work in Tinsukia.',
   )
+
+  /**
+   * "How much to fix a cracked iPhone screen in Tinsukia" is the query this
+   * page has to win, and the answer is on the page already — the estimator's
+   * own catalogue. Marking it up as an offered service with real starting
+   * prices describes what a visitor can actually see, which is the condition
+   * for using this markup at all.
+   *
+   * The FAQ answers are lifted from the copy rendered further down this route
+   * rather than written for the crawler, for the same reason.
+   */
+  const schema = useMemo(() => {
+    const issues = listIssues().map((issue) => ({
+      ...issue,
+      startingPrice: startingPriceFor(issue.id),
+    }))
+
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [
+        repairServiceSchema(issues),
+        breadcrumbSchema([{ name: 'Repairs', path: '/repairs' }]),
+        faqSchema([
+          {
+            question: 'How much does a phone screen repair cost in Tinsukia?',
+            answer: issues
+              .filter((i) => i.startingPrice)
+              .map((i) => `${i.name}: from ${money(i.startingPrice)}`)
+              .join('. '),
+          },
+          {
+            question: 'How long does a repair take?',
+            answer: issues.map((i) => `${i.short}: ${i.turnaround}`).join('. '),
+          },
+          {
+            question: 'Is the diagnosis free?',
+            answer:
+              'Yes. A technician runs a 42-point bench test while you watch, and there is no charge even if you decide not to go ahead with the repair.',
+          },
+          {
+            question: 'What warranty comes with a repair?',
+            answer:
+              'Up to 180 days depending on the part grade you choose, honoured at the counter. Genuine OEM parts carry 180 days and premium aftermarket parts 90 days.',
+          },
+        ]),
+      ],
+    }
+  }, [])
+
+  useStructuredData(schema)
 
   return (
     <>
