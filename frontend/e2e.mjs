@@ -35,20 +35,40 @@ const MIME = {
   '.json': 'application/json', '.ico': 'image/x-icon',
 }
 
-/** Mirrors vercel.json: filesystem first, then rewrite everything to index.html. */
+/**
+ * Mirrors how Vercel serves this: filesystem first, then the SPA rewrite.
+ *
+ * The directory-index step matters once prerendering is on — `/repairs` is a
+ * *directory* in dist, and the page lives at `dist/repairs/index.html`.
+ * Without resolving that, every prerendered route would fall through to the
+ * rewrite and serve the home page, which is both wrong and exactly the bug
+ * the SEO assertions are looking for.
+ */
+async function resolveFile(pathname) {
+  const direct = join(DIST, pathname)
+  try {
+    const info = await stat(direct)
+    if (info.isFile()) return direct
+    if (info.isDirectory()) {
+      const index = join(direct, 'index.html')
+      if ((await stat(index)).isFile()) return index
+    }
+  } catch {
+    /* not on disk — fall through to the rewrite */
+  }
+  return join(DIST, 'index.html')
+}
+
 function staticServer() {
   return createServer(async (req, res) => {
     const url = new URL(req.url, 'http://localhost')
-    let file = join(DIST, url.pathname)
-    try {
-      const s = await stat(file)
-      if (s.isDirectory()) throw new Error('dir')
-    } catch {
-      file = join(DIST, 'index.html')
-    }
+    const file = await resolveFile(url.pathname)
     try {
       const body = await readFile(file)
-      res.writeHead(200, { 'Content-Type': MIME[extname(file)] ?? 'application/octet-stream' })
+      res.writeHead(200, {
+        'Content-Type': MIME[extname(file)] ?? 'application/octet-stream',
+        'Content-Length': body.length,
+      })
       res.end(body)
     } catch {
       res.writeHead(404).end('not found')
@@ -194,6 +214,79 @@ await page.goto(origin + '/definitely-not-a-page', { waitUntil: 'networkidle' })
 ok((await page.locator('h1').first().textContent()).includes('not on the shelf'), 'unknown URL renders the 404 page')
 await page.goto(origin + '/shop/no-such-product', { waitUntil: 'networkidle' })
 ok((await page.locator('h1').first().textContent()).includes('not on the shelf'), 'unknown product renders the 404 page')
+
+section('SEO: what a crawler that does not run JavaScript sees')
+{
+  // Read the raw bytes off the wire, with no browser involved — this is what
+  // a WhatsApp/Facebook/Slack link preview and a first-pass crawl actually get.
+  const raw = async (path) => {
+    const res = await fetch(origin + path)
+    return res.text()
+  }
+  const attr = (html, re) => html.match(re)?.[1] ?? null
+
+  const canonicals = new Map()
+  for (const route of ['/', '/repairs', '/shop', '/students', '/visit', '/shop/iphone-15-128']) {
+    const html = await raw(route)
+    const canonical = attr(html, /<link rel="canonical" href="([^"]+)"/)
+    const title = attr(html, /<title>([^<]*)<\/title>/)
+    const desc = attr(html, /<meta name="description" content="([^"]*)"/)
+    canonicals.set(route, canonical)
+
+    const path = canonical ? new URL(canonical).pathname : null
+    ok(path === route, `${route} declares its own canonical`, `got ${path}`)
+    ok(Boolean(title && desc), `${route} has a title and description in raw HTML`)
+  }
+
+  // The bug this whole thing exists to fix: every route claiming to be `/`.
+  const distinct = new Set([...canonicals.values()])
+  ok(distinct.size === canonicals.size,
+     'no two routes share a canonical URL',
+     `${canonicals.size} routes -> ${distinct.size} distinct canonicals`)
+
+  // Titles must differ too, or results all look like the same page.
+  const titles = await Promise.all(
+    ['/repairs', '/shop', '/students', '/visit'].map(async (r) => attr(await raw(r), /<title>([^<]*)<\/title>/)),
+  )
+  ok(new Set(titles).size === titles.length, 'every route has a distinct <title>')
+
+  const productHtml = await raw('/shop/iphone-15-128')
+  ok(/"@type"\s*:\s*"Product"/.test(productHtml), 'product page ships Product schema without JS')
+  ok(/"availability"/.test(productHtml) && /"price"\s*:\s*66900/.test(productHtml),
+     'Product schema carries price and availability')
+  ok(/"@type"\s*:\s*"BreadcrumbList"/.test(productHtml), 'product page ships breadcrumbs')
+  ok(/iPhone 15/.test(productHtml) && productHtml.length > 20000,
+     `product copy is in the raw HTML (${(productHtml.length / 1024).toFixed(0)} kB)`)
+
+  const repairsHtml = await raw('/repairs')
+  ok(/"@type"\s*:\s*"FAQPage"/.test(repairsHtml), 'repairs page ships FAQ schema')
+  ok(/"@type"\s*:\s*"Service"/.test(repairsHtml), 'repairs page ships Service schema')
+
+  const homeHtml = await raw('/')
+  ok(/"@type"\s*:\s*"MobilePhoneStore"/.test(homeHtml), 'LocalBusiness schema on the home page')
+  ok(!/"aggregateRating"/.test(homeHtml),
+     'no self-serving aggregateRating markup (a Google guidelines violation)')
+
+  // Social previews: the reason a shared product link must not show the home page.
+  const ogTitle = attr(productHtml, /<meta property="og:title" content="([^"]*)"/)
+  const ogImage = attr(productHtml, /<meta property="og:image" content="([^"]*)"/)
+  ok(ogTitle && /iPhone 15/.test(ogTitle), `product og:title is the product (${ogTitle})`)
+  ok(Boolean(ogImage && ogImage.startsWith('http')), 'og:image is an absolute URL')
+
+  const ogRes = await fetch(origin + '/og-cover.jpg')
+  const ogBytes = (await ogRes.arrayBuffer()).byteLength
+  ok(ogRes.status === 200 && ogBytes > 10000,
+     `og-cover.jpg exists and is a real image (${(ogBytes / 1024).toFixed(0)} kB)`)
+
+  const sitemap = await raw('/sitemap.xml')
+  const urlCount = (sitemap.match(/<loc>/g) ?? []).length
+  ok(urlCount >= 28, `sitemap lists every page (${urlCount} URLs)`)
+  ok(!/127\.0\.0\.1|localhost/.test(sitemap), 'sitemap uses the production origin, not localhost')
+
+  const robots = await raw('/robots.txt')
+  ok(/Sitemap:\s*https?:\/\//.test(robots), 'robots.txt points at the sitemap')
+  ok(!/^Disallow:\s*\/\s*$/m.test(robots), 'robots.txt does not block the whole site')
+}
 
 section('core content renders from bundled data')
 await page.goto(origin + '/shop', { waitUntil: 'networkidle' })

@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { VisitHero } from '../features/visit/components/VisitHero'
 import { MapPanel } from '../features/visit/components/MapPanel'
 import { HoursCard } from '../features/visit/components/HoursCard'
@@ -5,12 +6,18 @@ import { ContactCard } from '../features/visit/components/ContactCard'
 import { GettingHere } from '../features/visit/components/GettingHere'
 import { Reveal } from '../components/ui/Reveal'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
+import { useStructuredData } from '../hooks/useStructuredData'
+import { breadcrumbSchema } from '../lib/seo'
 
 export function VisitPage() {
   useDocumentTitle(
     'Visit the store',
     'Second floor, Shop No 258, TDA Market, Tinsukia. Open seven days — live opening hours, parking and directions.',
   )
+
+  const schema = useMemo(() => breadcrumbSchema([{ name: 'Visit us', path: '/visit' }]), [])
+
+  useStructuredData(schema)
 
   return (
     <>

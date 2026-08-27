@@ -124,6 +124,91 @@ booked when it only reached WhatsApp.
 
 ---
 
+## SEO
+
+`npm run build:seo` (what `frontend/vercel.json` runs) does three things beyond a
+plain build:
+
+1. **Prerenders every route to static HTML.** `dist/repairs/index.html`,
+   `dist/shop/iphone-15-128/index.html` and so on. Vercel checks the filesystem
+   before the SPA rewrite, so these are served directly and the rewrite stays
+   as the fallback.
+2. **Generates `sitemap.xml`** from the route table and the product catalogue,
+   so adding a product cannot leave the sitemap stale.
+3. **Generates `robots.txt`** pointing at it.
+
+### Why prerendering, not just meta tags
+
+Googlebot runs JavaScript, but on a second pass that can lag the first crawl by
+days — and a new site has no crawl budget to spare. Nothing else runs it at all:
+the crawlers behind WhatsApp, Facebook, LinkedIn and Slack link previews read
+the raw HTML and stop. For a shop whose counter is WhatsApp, a shared product
+link that previews the *home page* is a real cost.
+
+The bug this fixes: `index.html` hardcodes one `<link rel="canonical">` pointing
+at the home page, and in a single-page app that same file is served for every
+path. Any crawler that does not execute JS was being told, by the page's own
+markup, that `/repairs`, `/shop` and `/students` are all duplicates of `/`.
+That does not merely fail to help — it actively prevents those pages from being
+indexed in their own right.
+
+### Structured data
+
+| Page | Schema |
+| --- | --- |
+| All | `MobilePhoneStore` — address, hours, geo, phone |
+| `/repairs` | `Service` with per-repair starting prices, `FAQPage`, breadcrumbs |
+| `/shop`, `/accessories` | `ItemList`, breadcrumbs |
+| `/shop/:id` | `Product` with price, availability and condition, breadcrumbs |
+| `/students` | `FAQPage`, breadcrumbs |
+
+Two deliberate omissions:
+
+- **No `aggregateRating` anywhere.** Google does not allow a business to mark up
+  its own review scores. Doing it risks a manual action rather than earning
+  stars; the rating in results comes from the Google Business Profile.
+- **No markup for content a visitor cannot see.** Every FAQ answer is lifted
+  from copy that is rendered on that page.
+
+### Before you expect traffic
+
+Code is necessary but not sufficient here. For a local shop these matter more
+than anything in this repo:
+
+1. **Set the real domain.** `VITE_SITE_URL` on the frontend project. Everything
+   — canonicals, sitemap, `og:url` — derives from it, and a preview deployment
+   claiming to be production would have its pages consolidated into the live
+   ones by Google.
+2. **Replace the placeholder business details** in `frontend/src/data/site.js`
+   and the JSON-LD in `frontend/index.html`: the phone number, the WhatsApp
+   number and the map coordinates are all documentation placeholders. Google
+   cross-checks name, address and phone against your Business Profile — a
+   mismatch costs local ranking directly.
+3. **Claim and complete the Google Business Profile.** For "phone repair near
+   me" queries this outranks the website itself. The listing is already wired
+   into the site (`site.google.cid`).
+4. **Submit the sitemap** in Google Search Console, and request indexing for
+   the home page once.
+5. **Regenerate the OG card** (`node scripts/generate-og-image.mjs`) after
+   changing business details — it is drawn from `site.js`. Replace the system
+   font stack with the brand face if you have it licensed for this.
+
+### Verifying
+
+```bash
+cd frontend && npm run build:seo
+node e2e.mjs        # includes the SEO assertions
+
+# Each route must return its own canonical, not the home page's:
+grep -o 'rel="canonical" href="[^"]*"' dist/repairs/index.html
+```
+
+After deploying, check a product URL in Google's
+[Rich Results Test](https://search.google.com/test/rich-results) and paste one
+into a WhatsApp chat to yourself to confirm the preview.
+
+---
+
 ## Verifying a deploy
 
 ```bash

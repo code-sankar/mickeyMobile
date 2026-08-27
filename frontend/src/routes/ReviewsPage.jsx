@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { ReviewGrid } from '../features/reviews/components/ReviewWall'
 import { RatingSummary } from '../features/reviews/components/RatingSummary'
 import { PageHeader } from '../components/ui/PageHeader'
@@ -6,6 +7,8 @@ import { Reveal } from '../components/ui/Reveal'
 import { site } from '../data/site'
 import { writeReviewUrl } from '../lib/googlePlaces'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
+import { useStructuredData } from '../hooks/useStructuredData'
+import { breadcrumbSchema } from '../lib/seo'
 import { useGoogleReviews } from '../hooks/useGoogleReviews'
 
 export function ReviewsPage() {
@@ -17,6 +20,10 @@ export function ReviewsPage() {
       ? `${total} reviews at ${rating} stars — read what customers say about repairs, pricing and turnaround at ${site.name}.`
       : `Read what customers say about repairs, pricing and turnaround at ${site.name}.`,
   )
+
+  const schema = useMemo(() => breadcrumbSchema([{ name: 'Reviews', path: '/reviews' }]), [])
+
+  useStructuredData(schema)
 
   return (
     <>
