@@ -12,10 +12,13 @@ import { Reveal } from '../components/ui/Reveal'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { useStructuredData } from '../hooks/useStructuredData'
 import { breadcrumbSchema, faqSchema } from '../lib/seo'
-import { discountTiers, eligibility, MINIMUM_SPEND, MINIMUM_AGE } from '../data/students'
+import { discountTiers, eligibility, MINIMUM_SPEND, MINIMUM_AGE, MAXIMUM_AGE } from '../data/students'
+import { percentRange } from '../lib/studentDiscount'
 import { money } from '../lib/utils'
 
-const percents = discountTiers.map((t) => t.percent)
+// Sorted, not read off the ends of `discountTiers` — the tiers run in bill
+// order and the rate falls as the bill rises, so the ends would print "10–7%".
+const { lowest, highest } = percentRange()
 
 const STEPS = [
   {
@@ -38,7 +41,7 @@ const STEPS = [
 export function StudentsPage() {
   useDocumentTitle(
     'Student repair discount',
-    `Students ${MINIMUM_AGE}+ get ${percents[0]}–${percents[percents.length - 1]}% off repair bills over ${money(MINIMUM_SPEND)} at Mickey Mobile, Tinsukia. Register once with your student ID.`,
+    `Students aged ${MINIMUM_AGE}–${MAXIMUM_AGE} get ${lowest}–${highest}% off repair bills over ${money(MINIMUM_SPEND)} at Mickey Mobile, Tinsukia. Register once with your student ID.`,
   )
 
   /**
@@ -86,12 +89,12 @@ export function StudentsPage() {
         eyebrow="Student portal"
         title={
           <>
-            {percents[0]}–{percents[percents.length - 1]}% off
+            {lowest}–{highest}% off
             <br />
             when you study
           </>
         }
-        description={`Register your student ID and your handset once. Every repair bill over ${money(MINIMUM_SPEND)} comes down by ${percents[0]}–${percents[percents.length - 1]}% from then on — no coupon, no expiry, nothing to remember at the counter.`}
+        description={`Register your student ID and your handset once. Every repair bill over ${money(MINIMUM_SPEND)} comes down by ${lowest}–${highest}% from then on — no coupon, nothing to remember at the counter.`}
         crumbs={[{ label: 'Students' }]}
         tone="grape"
       >

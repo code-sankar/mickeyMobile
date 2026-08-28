@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
-import { isOldEnough, ageFrom } from '../../../lib/studentDiscount'
-import { MINIMUM_AGE, deviceAgeOptions } from '../../../data/students'
+import { isAgeEligible, ageFrom } from '../../../lib/studentDiscount'
+import { MINIMUM_AGE, MAXIMUM_AGE, deviceAgeOptions } from '../../../data/students'
 import { waLink, waMessage } from '../../../lib/whatsapp'
 import { api } from '../../../lib/api'
 
@@ -30,7 +30,12 @@ function validate(values) {
 
   if (!values.dob) errors.dob = 'Required'
   else if (ageFrom(values.dob) === null) errors.dob = 'Not a date'
-  else if (!isOldEnough(values.dob)) errors.dob = `Must be ${MINIMUM_AGE}+`
+  // Two separate messages: "too old" and "too young" are different problems,
+  // and a single "check your age" leaves someone re-typing a correct date.
+  else if (!isAgeEligible(values.dob)) {
+    errors.dob =
+      ageFrom(values.dob) < MINIMUM_AGE ? `Must be ${MINIMUM_AGE}+` : `Offer ends at ${MAXIMUM_AGE}`
+  }
 
   if (values.institution.trim().length < 2) errors.institution = 'Required'
   if (!/^[6-9]\d{9}$/.test(values.phone.replace(/\D/g, ''))) errors.phone = '10-digit mobile'
