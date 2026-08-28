@@ -4,26 +4,27 @@
       "id": "standard",
       "percent": 10,
       "min": 1000,
-      "max": 4999,
+      "max": 14999,
       "label": "Standard",
-      "blurb": "Screen protectors, batteries, charging ports and most single-part jobs."
+      "blurb": "Batteries, charging ports, cameras, water damage, back glass and mid-range screens."
     },
     {
-      "id": "major",
-      "percent": 15,
-      "min": 5000,
+      "id": "high-value",
+      "percent": 7,
+      "min": 15000,
       "max": null,
-      "label": "Major repair",
-      "blurb": "Display assemblies, board-level work and water-damage recovery."
+      "label": "High-value repair",
+      "blurb": "Flagship and foldable display assemblies — the priciest jobs on the bench."
     }
   ],
   "minimumSpend": 1000,
   "minimumAge": 18,
+  "maximumAge": 28,
   "eligibility": [
     {
       "id": "age",
-      "title": "18 or older",
-      "detail": "Verified from your date of birth at registration. Under-18s cannot register."
+      "title": "Aged 18 to 28",
+      "detail": "Verified from your date of birth at registration. Under-18s cannot register, and the offer closes after 28."
     },
     {
       "id": "student",

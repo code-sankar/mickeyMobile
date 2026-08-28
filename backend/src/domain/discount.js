@@ -61,14 +61,37 @@ export function ageFrom(dateString, now = new Date()) {
   return age
 }
 
-export const isOldEnough = (dateString, minimumAge, now = new Date()) => {
+/**
+ * Inside the offer's age window, inclusive at both ends.
+ *
+ * `maximumAge` is optional so a deployment whose stored terms predate the
+ * ceiling keeps working — an absent ceiling means no upper bound, which is the
+ * old behaviour rather than a locked-out form.
+ */
+export const isAgeEligible = (dateString, minimumAge, maximumAge = null, now = new Date()) => {
   const age = ageFrom(dateString, now)
-  return age !== null && age >= minimumAge
+  if (age === null) return false
+  if (age < minimumAge) return false
+  return maximumAge === null || age <= maximumAge
 }
 
-/** The latest date of birth that still clears the age gate. */
+/** The latest date of birth that still clears the age floor. */
 export function latestEligibleDob(minimumAge, today = new Date()) {
   const d = new Date(today)
   d.setUTCFullYear(d.getUTCFullYear() - minimumAge)
+  return d.toISOString().slice(0, 10)
+}
+
+/**
+ * The earliest date of birth still inside the ceiling.
+ *
+ * `maximumAge + 1` years ago is the day someone ages out, so the first
+ * eligible birthday is the day after it.
+ */
+export function earliestEligibleDob(maximumAge, today = new Date()) {
+  if (maximumAge === null || maximumAge === undefined) return null
+  const d = new Date(today)
+  d.setUTCFullYear(d.getUTCFullYear() - (maximumAge + 1))
+  d.setUTCDate(d.getUTCDate() + 1)
   return d.toISOString().slice(0, 10)
 }

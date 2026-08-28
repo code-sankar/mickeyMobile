@@ -9,12 +9,14 @@ import {
   TextInput,
 } from '../../../components/ui/Field'
 import { useStudentRegistration } from '../hooks/useStudentRegistration'
-import { consentPurposes, deviceAgeOptions, MINIMUM_AGE } from '../../../data/students'
-import { latestEligibleDob } from '../../../lib/studentDiscount'
+import { consentPurposes, deviceAgeOptions, MINIMUM_AGE, MAXIMUM_AGE } from '../../../data/students'
+import { earliestEligibleDob, latestEligibleDob } from '../../../lib/studentDiscount'
 import { servicedBrands } from '../../../data/site'
 import { RegistrationSent } from './RegistrationSent'
 
+// Both ends of the window, so the picker cannot offer an ineligible date.
 const maxDob = latestEligibleDob()
+const minDob = earliestEligibleDob()
 
 export function RegistrationForm({ id = 'register' }) {
   const { values, errors, age, submitted, submitting, set, submit, reset } = useStudentRegistration()
@@ -56,14 +58,15 @@ export function RegistrationForm({ id = 'register' }) {
               icon={IdCard}
               htmlFor="st-dob"
               hint={
-                age !== null && age >= MINIMUM_AGE
+                age !== null && age >= MINIMUM_AGE && age <= MAXIMUM_AGE
                   ? `Age ${age} — eligible`
-                  : `The offer is for ${MINIMUM_AGE}s and over`
+                  : `The offer is for ages ${MINIMUM_AGE} to ${MAXIMUM_AGE}`
               }
             >
               <TextInput
                 id="st-dob"
                 type="date"
+                min={minDob}
                 max={maxDob}
                 value={values.dob}
                 onChange={set('dob')}

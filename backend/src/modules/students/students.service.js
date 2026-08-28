@@ -4,15 +4,22 @@ import { Booking } from '../../models/Booking.js'
 import { Setting } from '../../models/Setting.js'
 import { Counter } from '../../models/Counter.js'
 import { ApiError } from '../../utils/ApiError.js'
-import { ageFrom, isOldEnough, latestEligibleDob, savingsFor } from '../../domain/discount.js'
+import {
+  ageFrom,
+  earliestEligibleDob,
+  isAgeEligible,
+  latestEligibleDob,
+  savingsFor,
+} from '../../domain/discount.js'
 
 /** The offer terms, as the students page reads them. */
 export async function offerTerms() {
   const students = (await Setting.get('students')) ?? {}
   return {
     ...students,
-    // Computed rather than stored, so the date picker's ceiling is never stale.
+    // Computed rather than stored, so the date picker's bounds are never stale.
     latestEligibleDob: latestEligibleDob(students.minimumAge ?? 18),
+    earliestEligibleDob: earliestEligibleDob(students.maximumAge ?? null),
   }
 }
 
@@ -45,10 +52,17 @@ async function nextRegistrationId() {
 export async function register(input, { ip = null, source = 'web' } = {}) {
   const terms = (await Setting.get('students')) ?? {}
   const minimumAge = terms.minimumAge ?? 18
+  const maximumAge = terms.maximumAge ?? null
 
-  if (!isOldEnough(input.dob, minimumAge)) {
+  if (!isAgeEligible(input.dob, minimumAge, maximumAge)) {
+    // Distinct messages: too young and aged out are different problems, and one
+    // combined "check your age" leaves someone retyping a date that was right.
+    const age = ageFrom(input.dob)
     throw ApiError.unprocessable('Some details need another look', {
-      details: { dob: `Must be ${minimumAge}+` },
+      details: {
+        dob:
+          age !== null && age > minimumAge ? `Offer ends at ${maximumAge}` : `Must be ${minimumAge}+`,
+      },
     })
   }
 
@@ -186,6 +200,7 @@ export async function listRegistrations({ status, q, page = 1, limit = 25 }) {
     limit,
     pages: Math.max(1, Math.ceil(total / limit)),
     minimumAge: terms.minimumAge ?? 18,
+    maximumAge: terms.maximumAge ?? null,
   }
 }
 

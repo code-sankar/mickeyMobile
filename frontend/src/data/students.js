@@ -8,41 +8,62 @@
 /**
  * Discount bands.
  *
- * The brief said "10-15%" without saying what decides which. Splitting it on
- * bill size is the assumption baked in here: it rewards the larger repairs
- * without giving 15% away on a Rs 1,100 battery swap. Change the numbers here
- * and the offer page, the calculator and the eligibility copy all follow.
+ * The percentage falls as the bill rises, which is deliberate and the opposite
+ * of the usual instinct. A flat or rising percentage means the shop's largest
+ * giveaway lands on its highest-value work: at 15% a Rs 32,900 flagship screen
+ * costs nearly Rs 5,000 in margin, on a job whose parts cost is already the
+ * least forgiving. Tapering to 7% caps the absolute rupee cost of the offer
+ * while leaving the headline rate intact for the everyday repairs that bring
+ * students through the door in the first place.
+ *
+ * One consequence to know about: because the bands are decided by bill size,
+ * savings step *down* at the boundary. A Rs 14,999 bill saves Rs 1,500; a
+ * Rs 15,001 bill saves Rs 1,050. Nobody pays more by spending more, so there
+ * is no perverse incentive, but the counter should expect the occasional
+ * question from someone just over the line.
+ *
+ * Change the numbers here and the offer page, the calculator, the eligibility
+ * copy and the API's seed all follow.
  */
 export const discountTiers = [
   {
     id: 'standard',
     percent: 10,
     min: 1000,
-    max: 4999,
+    max: 14999,
     label: 'Standard',
-    blurb: 'Screen protectors, batteries, charging ports and most single-part jobs.',
+    blurb: 'Batteries, charging ports, cameras, water damage, back glass and mid-range screens.',
   },
   {
-    id: 'major',
-    percent: 15,
-    min: 5000,
+    id: 'high-value',
+    percent: 7,
+    min: 15000,
     max: null,
-    label: 'Major repair',
-    blurb: 'Display assemblies, board-level work and water-damage recovery.',
+    label: 'High-value repair',
+    blurb: 'Flagship and foldable display assemblies — the priciest jobs on the bench.',
   },
 ]
 
 /** Below this, the offer does not apply at all. */
 export const MINIMUM_SPEND = 1000
 
-/** The offer is for adults only — this also keeps minors' data out of the system. */
+/**
+ * The age window.
+ *
+ * The floor keeps minors' data out of the system entirely. The ceiling keeps
+ * the offer pointed at the people it is meant for: without one, "any
+ * institution with a photo ID card" stretches to part-time and professional
+ * courses indefinitely, and a student discount that never expires stops being
+ * a student discount.
+ */
 export const MINIMUM_AGE = 18
+export const MAXIMUM_AGE = 28
 
 export const eligibility = [
   {
     id: 'age',
-    title: '18 or older',
-    detail: 'Verified from your date of birth at registration. Under-18s cannot register.',
+    title: `Aged ${MINIMUM_AGE} to ${MAXIMUM_AGE}`,
+    detail: `Verified from your date of birth at registration. Under-${MINIMUM_AGE}s cannot register, and the offer closes after ${MAXIMUM_AGE}.`,
   },
   {
     id: 'student',
