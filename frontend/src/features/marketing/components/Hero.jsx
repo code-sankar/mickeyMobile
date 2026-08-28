@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { Button } from '../../../components/ui/Button'
 import { Badge } from '../../../components/ui/Badge'
 import { RepairTicket } from '../../repairs/components/RepairTicket'
+import { HeroBackdrop } from './HeroBackdrop'
 import { site } from '../../../data/site'
 import { usePrefersReducedMotion } from '../../../hooks/usePrefersReducedMotion'
 import { useGoogleReviews } from '../../../hooks/useGoogleReviews'
@@ -40,6 +41,9 @@ export function Hero() {
 
   return (
     <section className="grid-paper relative overflow-hidden border-b-3 border-ink bg-paper-100 pb-14 pt-28 sm:pt-32 lg:pb-20 lg:pt-36">
+      <HeroBackdrop />
+
+      {/* `relative` lifts the content above the backdrop's absolute layer. */}
       <div className="container-x relative">
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
           {/* ---------- Copy ---------- */}
